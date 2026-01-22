@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, Twitter, Instagram } from "lucide-react";
+import { Mail, Github, Linkedin, Twitter, Instagram, MessageCircle } from "lucide-react";
+import { label } from "framer-motion/client";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -72,6 +73,11 @@ const Contact = () => {
       icon: Instagram,
       url: "https://instagram.com/phawaaz_",
       label: "Instagram",
+    },
+    {
+      icon: MessageCircle,
+      url: "https://api.whatsapp.com/send/?phone=09012183194&text&type=phone_number&app_absent=0",
+      label: "Whatsapp"
     },
   ];
 
