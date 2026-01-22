@@ -8,6 +8,8 @@ import Achievements from './components/Achievements';
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Navigation from "./components/Navigation";
+import { SEO } from "./components/SEO";
+import { SEO_CONFIG } from "./config/seo";
 
 function App() {
   const [activeSection, setActiveSection] = useState(0);
@@ -35,6 +37,11 @@ function App() {
 
   return (
     <>
+      <SEO
+        title="Full Stack Developer | React, Node.js, TypeScript"
+        description="Akinola Fawaz - Full Stack Developer specializing in React, Next.js, Node.js, and TypeScript. Building scalable web applications with clean code."
+        url={SEO_CONFIG.siteUrl}
+      />
       {!preloadComplete && (
         <Preload onComplete={() => setPreloadComplete(true)} />
       )}

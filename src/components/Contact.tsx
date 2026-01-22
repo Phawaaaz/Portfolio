@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Mail, Github, Linkedin, Twitter, Instagram, MessageCircle } from "lucide-react";
-import { label } from "framer-motion/client";
+// import { label } from "framer-motion/client";
 
 const Contact = () => {
   const [formData, setFormData] = useState({

@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /private
+
+Sitemap: https://phawaaz.vercel.app/sitemap.xml
+
+User-agent: AdsBot-Google
+Allow: /
