@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Mail, Github, Linkedin, Twitter, Instagram, MessageCircle } from "lucide-react";
-// import { label } from "framer-motion/client";
+// import { label } from "framer-motion/client";  
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -203,7 +203,7 @@ const Contact = () => {
               <motion.div whileHover={{ x: 4 }} transition={{ duration: 0.2 }}>
                 <h3 className="text-sm font-mono text-[#8B7355] mb-3">EMAIL</h3>
                 <a
-                  href="mailto:akinolafawaz28@gmail.com"
+                  href="mailto:phawaazakin@gmail.com"
                   className="flex items-center gap-3 text-[#F5F3EF]/80 hover:text-[#8B7355] transition-colors duration-300"
                 >
                   <Mail className="w-5 h-5" />

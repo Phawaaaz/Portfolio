@@ -80,7 +80,7 @@ const About = () => {
             }}
           >
             <a
-              href="mailto:akinolafawaz28@gmail.com"
+              href="mailto:phawaazakin@gmail.com"
               className="group inline-flex items-center text-base font-mono text-[#8B7355] hover:text-[#F5F3EF] transition-colors duration-300"
             >
               Get in touch

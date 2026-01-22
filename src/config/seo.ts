@@ -1,7 +1,7 @@
 export const SEO_CONFIG = {
   siteName: 'Akinola Fawaz - Full Stack Developer',
   author: 'Akinola Fawaz',
-  email: 'akinolafawaz28@gmail.com',
+  email: 'phawaazakin@gmail.com',
   location: 'Anywhere',
   siteUrl: 'https://phawaaz.vercel.app',
   social: {
