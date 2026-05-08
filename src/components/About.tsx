@@ -32,7 +32,7 @@ const About = () => {
       <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
         <div className="relative">
           <div
-            className={`transition-all duration-1000 ${
+            className={`transition-[opacity,transform] duration-1000 ${
               isVisible
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 -translate-x-12"
@@ -46,7 +46,7 @@ const About = () => {
                   <img
                     src="./fawaz.png"
                     alt="Akinola Fawaz"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover outline outline-1 outline-white/10 outline-offset-[-1px] rounded-lg"
                   />
                 </div>
               </div>
@@ -56,16 +56,16 @@ const About = () => {
 
         <div className="space-y-6">
           <div
-            className={`transition-all duration-1000`}
+            className={`transition-[opacity,transform] duration-1000`}
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? "translateY(0)" : "translateY(32px)",
             }}
           >
-            <h2 className="text-4xl md:text-5xl font-serif text-[#8B7355] mb-4">
+            <h2 className="text-4xl md:text-5xl font-serif text-[#8B7355] mb-4 text-balance">
               About
             </h2>
-            <p className="text-lg text-[#F5F3EF]/90 leading-relaxed">
+            <p className="text-lg text-[#F5F3EF]/90 leading-relaxed text-pretty">
               Full-stack developer building scalable web applications with
               React, Node.js, and TypeScript. I focus on clean code and
               practical solutions.
@@ -73,7 +73,7 @@ const About = () => {
           </div>
 
           <div
-            className={`transition-all duration-1000 delay-200`}
+            className={`transition-[opacity,transform] duration-1000 delay-200`}
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? "translateY(0)" : "translateY(32px)",
@@ -81,7 +81,7 @@ const About = () => {
           >
             <a
               href="mailto:phawaazakin@gmail.com"
-              className="group inline-flex items-center text-base font-mono text-[#8B7355] hover:text-[#F5F3EF] transition-colors duration-300"
+              className="group inline-flex items-center text-base font-mono text-[#8B7355] hover:text-[#F5F3EF] transition-transform duration-150 ease-out active:scale-[0.96]"
             >
               Get in touch
               <span className="ml-2 transform group-hover:translate-x-2 transition-transform duration-300">

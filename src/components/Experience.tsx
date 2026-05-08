@@ -94,7 +94,7 @@ const Experience = () => {
           initial={{ opacity: 0, y: 48 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 48 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="text-5xl md:text-7xl font-serif text-center mb-4"
+          className="text-5xl md:text-7xl font-serif text-center mb-4 text-balance"
         >
           Experience
         </motion.h2>
@@ -103,7 +103,7 @@ const Experience = () => {
           initial={{ opacity: 0, y: 48 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 48 }}
           transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center text-lg text-[#F5F3EF]/60 mb-16"
+          className="text-center text-lg text-[#F5F3EF]/60 mb-16 text-pretty"
         >
           Where I've worked and learned
         </motion.p>

@@ -89,14 +89,14 @@ const Projects = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto">
         <h2
-          className={`text-5xl md:text-7xl font-serif text-center mb-4 transition-all duration-1000 ${
+          className={`text-5xl md:text-7xl font-serif text-center mb-4 transition-[opacity,transform] duration-1000 text-balance ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           }`}
         >
           Projects
         </h2>
         <p
-          className={`text-center text-lg text-[#F5F3EF]/60 mb-16 transition-all duration-1000 delay-200 ${
+          className={`text-center text-lg text-[#F5F3EF]/60 mb-16 transition-[opacity,transform] duration-1000 delay-200 text-pretty ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           }`}
         >
@@ -107,14 +107,14 @@ const Projects = () => {
           {projects.map((project, index) => (
             <div
               key={index}
-              className={`group transition-all duration-700 ${
+              className={`group transition-[opacity,transform] duration-700 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-              } ${hoveredIndex === index ? "-translate-y-2 scale-105" : ""}`}
+              } ${hoveredIndex === index ? "-translate-y-2 scale-[1.02]" : ""}`}
               style={{ transitionDelay: `${index * 100}ms` }}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
-              <div className="relative h-full bg-[#1A1A1A] rounded-lg p-6 border border-[#F5F3EF]/10 hover:border-[#8B7355]/30 transition-all duration-300 hover:shadow-2xl hover:shadow-[#8B7355]/10">
+              <div className="relative h-full bg-[#1A1A1A] rounded-lg p-6 shadow-[var(--shadow-border)] hover:shadow-[0_4px_24px_rgba(139,115,85,0.15)] transition-[box-shadow] duration-300">
                 {/* Gradient overlay on hover */}
                 <div className={`absolute inset-0 bg-gradient-to-br from-[#8B7355]/10 to-[#2D9596]/10 rounded-lg transition-opacity duration-500 ${
                   hoveredIndex === index ? "opacity-100" : "opacity-0"
@@ -132,7 +132,7 @@ const Projects = () => {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#F5F3EF]/50 hover:text-[#8B7355] transition-colors duration-300"
+                        className="relative text-[#F5F3EF]/50 hover:text-[#8B7355] transition-colors duration-300 active:scale-[0.96] after:absolute after:-inset-3"
                       >
                         <Github className="w-5 h-5" />
                       </a>
@@ -142,7 +142,7 @@ const Projects = () => {
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#F5F3EF]/50 hover:text-[#8B7355] transition-colors duration-300"
+                        className="relative text-[#F5F3EF]/50 hover:text-[#8B7355] transition-colors duration-300 active:scale-[0.96] after:absolute after:-inset-3"
                       >
                         <ExternalLink className="w-5 h-5" />
                       </a>
@@ -151,12 +151,12 @@ const Projects = () => {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl font-serif mb-3 text-[#F5F3EF] group-hover:text-[#8B7355] transition-colors duration-300 relative z-10">
+                <h3 className="text-xl font-serif mb-3 text-[#F5F3EF] group-hover:text-[#8B7355] transition-colors duration-300 relative z-10 text-pretty">
                   {project.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm text-[#F5F3EF]/70 leading-relaxed mb-4 relative z-10">
+                <p className="text-sm text-[#F5F3EF]/70 leading-relaxed mb-4 relative z-10 text-pretty">
                   {project.description}
                 </p>
 
@@ -187,7 +187,7 @@ const Projects = () => {
             href="https://github.com/phawaaaz"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-[#8B7355] font-mono text-sm hover:text-[#F5F3EF] transition-colors duration-300 group"
+            className="inline-flex items-center gap-2 text-[#8B7355] font-mono text-sm hover:text-[#F5F3EF] transition-colors duration-300 group active:scale-[0.96]"
           >
             View all projects on GitHub
             <span className="transform group-hover:translate-x-1 transition-transform duration-300">

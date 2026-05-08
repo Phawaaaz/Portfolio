@@ -35,7 +35,7 @@ const Hero = () => {
 
       <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
         <div
-          className={`transition-all duration-1000 ${
+          className={`transition-[opacity,transform] duration-1000 ${
             textVisible
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-8"
@@ -45,7 +45,7 @@ const Hero = () => {
             AKINOLA FAWAZ
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-serif mb-6 tracking-tight">
+          <h1 className="text-5xl md:text-7xl font-serif mb-6 tracking-tight text-balance">
             <span className="inline-block hover:text-[#8B7355] transition-colors duration-500">
               Full Stack Developer
             </span>
@@ -53,7 +53,7 @@ const Hero = () => {
 
           <div className="h-px w-48 bg-gradient-to-r from-transparent via-[#8B7355] to-transparent mx-auto my-8" />
 
-          <p className="text-xl md:text-2xl text-[#F5F3EF]/80 font-light max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-[#F5F3EF]/80 font-light max-w-3xl mx-auto leading-relaxed text-pretty">
             <span className="inline-block hover:scale-105 transition-transform duration-300">
               Building scalable web applications with React, Node.js, and
               TypeScript.
@@ -65,7 +65,7 @@ const Hero = () => {
         </div>
 
         <div
-          className={`mt-12 flex items-center justify-center gap-8 transition-all duration-1000 delay-500 ${
+          className={`mt-12 flex items-center justify-center gap-8 transition-[opacity,transform] duration-1000 delay-500 ${
             textVisible
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-8"
@@ -75,7 +75,7 @@ const Hero = () => {
             href="/Fawaz_Akinola_CV.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative text-[#8B7355] font-mono text-sm tracking-wider transition-all duration-300"
+            className="group relative text-[#8B7355] font-mono text-sm tracking-wider transition-transform duration-150 ease-out active:scale-[0.96]"
           >
             <span className="relative z-10 group-hover:text-[#F5F3EF] transition-colors duration-300">
               Resume
@@ -83,7 +83,7 @@ const Hero = () => {
                 ↗
               </span>
             </span>
-            <span className="absolute bottom-0 left-0 w-0 h-px bg-[#8B7355] group-hover:w-full transition-all duration-300" />
+            <span className="absolute bottom-0 left-0 w-0 h-px bg-[#8B7355] group-hover:w-full transition-[width] duration-300" />
           </a>
 
           <span className="text-[#F5F3EF]/20 animate-pulse">|</span>
@@ -92,7 +92,7 @@ const Hero = () => {
             href="https://github.com/phawaaaz"
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative text-[#8B7355] font-mono text-sm tracking-wider transition-all duration-300"
+            className="group relative text-[#8B7355] font-mono text-sm tracking-wider transition-transform duration-150 ease-out active:scale-[0.96]"
           >
             <span className="relative z-10 group-hover:text-[#F5F3EF] transition-colors duration-300">
               GitHub
@@ -100,7 +100,7 @@ const Hero = () => {
                 ↗
               </span>
             </span>
-            <span className="absolute bottom-0 left-0 w-0 h-px bg-[#8B7355] group-hover:w-full transition-all duration-300" />
+            <span className="absolute bottom-0 left-0 w-0 h-px bg-[#8B7355] group-hover:w-full transition-[width] duration-300" />
           </a>
         </div>
       </div>

@@ -179,7 +179,7 @@ const Contact = () => {
               <motion.button
                 onClick={handleSubmit}
                 whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileTap={{ scale: 0.96 }}
                 className="w-full px-6 py-3 bg-[#8B7355] text-[#0D0D0D] rounded font-mono text-sm hover:bg-[#A68A6F] transition-colors duration-300 relative overflow-hidden group"
               >
                 <motion.div
@@ -228,8 +228,8 @@ const Contact = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.05, y: -2 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="group flex items-center gap-2 px-4 py-2 border border-[#F5F3EF]/10 rounded hover:border-[#8B7355]/30 transition-colors duration-300"
+                        whileTap={{ scale: 0.96 }}
+                        className="group flex items-center gap-2 px-4 py-3 border border-[#F5F3EF]/10 rounded hover:border-[#8B7355]/30 transition-colors duration-300"
                         aria-label={social.label}
                       >
                         <Icon className="w-5 h-5 text-[#F5F3EF]/60 group-hover:text-[#8B7355] transition-colors duration-300" />
@@ -271,7 +271,7 @@ const Contact = () => {
           className="mt-20 pt-8 border-t border-[#F5F3EF]/10 text-center"
         >
           <p className="text-sm font-mono text-[#F5F3EF]/40">
-            © 2025 Akinola Fawaz.
+            © 2026 Akinola Fawaz.
           </p>
         </motion.div>
       </div>
