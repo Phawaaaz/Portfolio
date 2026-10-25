@@ -3,7 +3,7 @@ export const SEO_CONFIG = {
   author: 'Akinola Fawaz',
   email: 'phawaazakin@gmail.com',
   location: 'Anywhere',
-  siteUrl: 'https://phawaaz.vercel.app',
+  siteUrl: 'https://www.akinola.tech',
   social: {
     github: 'https://github.com/phawaaaz',
     linkedin: 'https://linkedin.com/in/phawaz/',
@@ -11,7 +11,7 @@ export const SEO_CONFIG = {
     instagram: 'https://instagram.com/phawaaz_',
   },
   og: {
-    image: 'https://phawaaz.vercel.app/og-image.jpg',
+    image: 'https://www.akinola.tech/og-image.jpg',
     imageAlt: 'Akinola Fawaz - Full Stack Developer Portfolio',
     imageWidth: 1200,
     imageHeight: 630,
