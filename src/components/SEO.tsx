@@ -65,7 +65,7 @@ export const SEO = ({
           name: SEO_CONFIG.author,
           url: SEO_CONFIG.siteUrl,
           image: image,
-          jobTitle: 'Full Stack Developer',
+          jobTitle: 'Software Developer',
           email: SEO_CONFIG.email,
           sameAs: Object.values(SEO_CONFIG.social),
           location: {

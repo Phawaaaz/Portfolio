@@ -41,8 +41,8 @@ function App() {
   return (
     <>
       <SEO
-        title="Full Stack Developer | React, Node.js, TypeScript"
-        description="Akinola Fawaz - Full Stack Developer specializing in React, Next.js, Node.js, and TypeScript. Building scalable web applications with clean code."
+        title="Software Developer | React, Node.js, TypeScript"
+        description="Akinola Fawaz - Software Developer specializing in React, Next.js, Node.js, and TypeScript. Building scalable web applications with clean code."
         url={SEO_CONFIG.siteUrl}
       />
       {!preloadComplete && (

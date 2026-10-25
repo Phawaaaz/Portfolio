@@ -68,7 +68,7 @@ const Hero = () => {
 
       <div className="relative z-10 text-center">
         <motion.p {...fade(0)} className="font-mono text-sm uppercase tracking-widest text-accent">
-          Full Stack Developer · Lagos
+          Software Developer · Lagos
         </motion.p>
 
         <h1

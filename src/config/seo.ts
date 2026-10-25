@@ -1,5 +1,5 @@
 export const SEO_CONFIG = {
-  siteName: 'Akinola Fawaz - Full Stack Developer',
+  siteName: 'Akinola Fawaz - Software Developer',
   author: 'Akinola Fawaz',
   email: 'phawaazakin@gmail.com',
   location: 'Anywhere',
@@ -12,15 +12,15 @@ export const SEO_CONFIG = {
   },
   og: {
     image: 'https://www.akinola.tech/og-image.jpg',
-    imageAlt: 'Akinola Fawaz - Full Stack Developer Portfolio',
+    imageAlt: 'Akinola Fawaz - Software Developer Portfolio',
     imageWidth: 1200,
     imageHeight: 630,
   },
 };
 
 export const PAGE_DESCRIPTIONS = {
-  hero: 'Full-stack developer building scalable web applications with React, Node.js, and TypeScript.',
-  about: 'Learn more about Akinola Fawaz, a passionate full-stack developer focused on clean code and practical solutions.',
+  hero: 'Software developer building scalable web applications with React, Node.js, and TypeScript.',
+  about: 'Learn more about Akinola Fawaz, a passionate software developer focused on clean code and practical solutions.',
   projects: 'Explore my recent projects including full-stack applications, backend APIs, and frontend implementations.',
   experience: 'View my professional experience and work history in software development.',
   achievements: 'Discover my credentials, certifications, education, and leadership roles.',
