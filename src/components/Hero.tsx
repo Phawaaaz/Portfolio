@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { FileText, Github, MessageCircle } from "lucide-react";
 import AsciiRain from "./AsciiRain";
@@ -35,16 +35,15 @@ const Masked = ({ children, show, delay }: { children: string; show: boolean; de
 
 // Quiet wordmark hero. The name rises letter by letter, the line word by word,
 // and it all replays whenever the hero scrolls back into view.
-const Hero = () => {
+interface HeroProps {
+  /** True once the preload curtain starts lifting. */
+  ready: boolean;
+}
+
+const Hero = ({ ready }: HeroProps) => {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { amount: 0.4 });
-  // Wait for the preload screen to leave before the first reveal.
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 2000);
-    return () => clearTimeout(t);
-  }, []);
-  const show = loaded && inView;
+  const show = ready && inView;
 
   const letters = [...name];
   const words = line.split(" ");

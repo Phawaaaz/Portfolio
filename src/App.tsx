@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Preload from "./components/Preload";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -16,7 +16,25 @@ import { SEO_CONFIG } from "./config/seo";
 
 function App() {
   const [activeSection, setActiveSection] = useState(0);
-  const [preloadComplete, setPreloadComplete] = useState(false);
+  // The preload screen shows once per visit; a refresh in the same tab skips it.
+  const [seenPreload] = useState(() => {
+    try {
+      return sessionStorage.getItem("preloaded") === "1";
+    } catch {
+      return false;
+    }
+  });
+  const [revealed, setRevealed] = useState(seenPreload);
+  const [preloadGone, setPreloadGone] = useState(seenPreload);
+  const handleReveal = useCallback(() => {
+    setRevealed(true);
+    try {
+      sessionStorage.setItem("preloaded", "1");
+    } catch {
+      // Storage blocked: the preload just shows again next time.
+    }
+  }, []);
+  const handleDone = useCallback(() => setPreloadGone(true), []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,13 +63,13 @@ function App() {
         description="Akinola Fawaz - Software Developer specializing in React, Next.js, Node.js, and TypeScript. Building scalable web applications with clean code."
         url={SEO_CONFIG.siteUrl}
       />
-      {!preloadComplete && (
-        <Preload onComplete={() => setPreloadComplete(true)} />
+      {!preloadGone && (
+        <Preload onReveal={handleReveal} onDone={handleDone} />
       )}
       <div className="bg-page text-fg">
         <Navigation activeSection={activeSection} />
         <ThemeToggle />
-        <Hero />
+        <Hero ready={revealed} />
         <About />
         <Projects />
         <Experience />
