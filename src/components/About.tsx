@@ -76,22 +76,11 @@ const About = () => {
           ))}
         </p>
 
-        <div className="mt-14 grid gap-10 md:mt-20 md:grid-cols-2">
-          <motion.p
-            {...rise}
-            transition={{ duration: 0.8, ease: EASE }}
-            className="text-lg leading-relaxed text-[#F5F3EF]/75 text-pretty"
-          >
-            Most of my work sits where products meet money and data: payments, invoicing,
-            bank-alert parsing, and AI tools that read ECGs or spot a crisis early. I'm a
-            Computer Science graduate from the University of Ilorin, and I care about the
-            details users never notice.
-          </motion.p>
-
+        <div className="mt-14 md:mt-20">
           <motion.dl
             {...rise}
             transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
-            className="grid grid-cols-2 gap-4"
+            className="grid max-w-md grid-cols-2 gap-4"
           >
             {proof.map((item) => (
               <div key={item.label}>
