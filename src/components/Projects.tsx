@@ -93,7 +93,7 @@ const more: Project[] = [
     role: "Client site",
     description: "Company website for a Nigerian firm offering micro-credit and business advisory.",
     tech: ["Next.js", "TypeScript", "Tailwind"],
-    live: "https://asol-ecru.vercel.app",
+    live: "https://www.asolsolution.com",
     github: "https://github.com/phawaaaz/Asolbss",
     image: "asol.jpg",
   },
