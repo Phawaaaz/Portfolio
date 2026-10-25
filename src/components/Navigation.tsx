@@ -33,12 +33,12 @@ const Navigation = ({ activeSection }: NavigationProps) => {
               <div
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   activeSection === index
-                    ? "bg-[#8B7355] scale-150 shadow-lg shadow-[#8B7355]/50"
-                    : "bg-[#F5F3EF]/30 hover:bg-[#F5F3EF]/50"
+                    ? "bg-accent scale-150 shadow-lg shadow-accent/50"
+                    : "bg-fg/30 hover:bg-fg/50"
                 }`}
               />
               <span
-                className={`absolute right-full mr-4 px-3 py-1 bg-[#1A1A1A] border border-[#8B7355]/30 rounded text-sm font-mono whitespace-nowrap transition-all duration-300 ${
+                className={`absolute right-full mr-4 px-3 py-1 bg-raised border border-accent/30 rounded text-sm font-mono whitespace-nowrap transition-all duration-300 ${
                   activeSection === index
                     ? "opacity-100 translate-x-0"
                     : "opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"
@@ -53,7 +53,7 @@ const Navigation = ({ activeSection }: NavigationProps) => {
 
       {/* Mobile Navigation */}
       <nav className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 md:hidden">
-        <div className="flex gap-3 px-4 py-3 bg-[#1A1A1A]/80 backdrop-blur-sm border border-[#F5F3EF]/10 rounded-full">
+        <div className="flex gap-3 px-4 py-3 bg-raised/80 backdrop-blur-sm border border-fg/10 rounded-full">
           {sections.map((_section, index) => (
             <button
               key={index}
@@ -63,8 +63,8 @@ const Navigation = ({ activeSection }: NavigationProps) => {
               <div
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   activeSection === index
-                    ? "bg-[#8B7355] scale-150 shadow-lg shadow-[#8B7355]/50"
-                    : "bg-[#F5F3EF]/30"
+                    ? "bg-accent scale-150 shadow-lg shadow-accent/50"
+                    : "bg-fg/30"
                 }`}
               />
             </button>
@@ -73,9 +73,9 @@ const Navigation = ({ activeSection }: NavigationProps) => {
       </nav>
 
       {/* Progress Bar */}
-      <div className="fixed top-0 left-0 right-0 h-1 bg-[#1A1A1A] z-50">
+      <div className="fixed top-0 left-0 right-0 h-1 bg-raised z-50">
         <div
-          className="h-full bg-gradient-to-r from-[#8B7355] to-[#2D9596] transition-all duration-300"
+          className="h-full bg-gradient-to-r from-accent to-[#2D9596] transition-all duration-300"
           style={{ width: `${((activeSection + 1) / sections.length) * 100}%` }}
         />
       </div>

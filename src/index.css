@@ -3,12 +3,31 @@
 @tailwind utilities;
 
 @layer base {
+  /* Theme colours as RGB triplets (used by Tailwind's page / fg / accent / raised). */
   :root {
+    --page: 13 13 13;          /* #0D0D0D */
+    --fg: 245 243 239;         /* #F5F3EF */
+    --accent: 139 115 85;      /* #8B7355 */
+    --accent-light: 168 144 111; /* #A8906F */
+    --raised: 26 26 26;        /* #1A1A1A */
     --shadow-border: 0 0 0 1px rgba(255, 255, 255, 0.08);
+    color-scheme: dark;
+  }
+
+  /* Light: paper ground, near-black ink, a deeper bronze that stays readable on paper. */
+  :root[data-theme="light"] {
+    --page: 245 243 239;       /* #F5F3EF */
+    --fg: 23 20 17;            /* #171411 */
+    --accent: 122 98 72;       /* #7A6248 */
+    --accent-light: 110 87 62; /* #6E573E */
+    --raised: 234 230 223;     /* #EAE6DF */
+    --shadow-border: 0 0 0 1px rgba(0, 0, 0, 0.08);
+    color-scheme: light;
   }
 
   html {
     scroll-behavior: smooth;
+    background-color: rgb(var(--page));
   }
 
   body {
@@ -119,14 +138,14 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0D0D0D;
+  background: rgb(var(--page));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #8B7355;
+  background: rgb(var(--accent));
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #A68A6F;
+  background: rgb(var(--accent-light));
 }

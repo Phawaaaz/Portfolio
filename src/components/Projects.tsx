@@ -151,7 +151,7 @@ const codeOnly: Project[] = [
 
 // Terminal-block CTA, same as the hero.
 const cta =
-  "relative inline-flex items-center gap-2 bg-[#F5F3EF]/[0.06] px-2.5 py-1 font-mono text-sm text-[#A8906F] transition-[background-color,color] duration-150 ease-out after:absolute after:-inset-y-1.5 after:inset-x-0 hover:bg-[#A8906F] hover:text-[#0D0D0D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A8906F]";
+  "relative inline-flex items-center gap-2 bg-fg/[0.06] px-2.5 py-1 font-mono text-sm text-accent-light transition-[background-color,color] duration-150 ease-out after:absolute after:-inset-y-1.5 after:inset-x-0 hover:bg-accent-light hover:text-page focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-light";
 
 const Links = ({ project }: { project: Project }) => (
   <div className="flex flex-wrap gap-3">
@@ -178,7 +178,7 @@ const Shot = ({ project, className = "" }: { project: Project; className?: strin
     rel="noopener noreferrer"
     tabIndex={-1}
     aria-hidden="true"
-    className={`group/shot block overflow-hidden rounded-lg bg-[#1A1A1A] shadow-[var(--shadow-border)] ${className}`}
+    className={`group/shot block overflow-hidden rounded-lg bg-raised shadow-[var(--shadow-border)] ${className}`}
   >
     <img
       src={`/projects/${project.image}`}
@@ -186,7 +186,7 @@ const Shot = ({ project, className = "" }: { project: Project; className?: strin
       loading="lazy"
       width={1280}
       height={800}
-      className="aspect-[16/10] w-full object-cover object-top outline outline-1 -outline-offset-1 outline-white/10 transition-[filter,transform] duration-700 ease-out [filter:grayscale(0.85)_sepia(0.25)_brightness(0.72)] group-hover/shot:scale-[1.03] group-hover/shot:[filter:none]"
+      className="aspect-[16/10] w-full object-cover object-top outline outline-1 -outline-offset-1 outline-white/10 [[data-theme=light]_&]:outline-black/10 transition-[filter,transform] duration-700 ease-out [filter:grayscale(0.85)_sepia(0.25)_brightness(0.72)] [[data-theme=light]_&]:[filter:grayscale(0.85)_sepia(0.15)] group-hover/shot:scale-[1.03] group-hover/shot:[filter:none]"
     />
   </a>
 );
@@ -218,16 +218,16 @@ const FeaturedRow = ({ project, index }: { project: Project; index: number }) =>
         transition={{ duration: 0.45, delay: 0.15, ease: EASE }}
         className={`md:col-span-5 ${flip ? "md:order-1" : ""}`}
       >
-        <p className="font-mono text-sm text-[#8B7355]">
+        <p className="font-mono text-sm text-accent">
           <span className="tabular-nums">{String(index + 1).padStart(2, "0")}</span>
-          <span className="mx-2 text-[#F5F3EF]/30">/</span>
+          <span className="mx-2 text-fg/30">/</span>
           {project.role}
         </p>
-        <h3 className="mt-3 font-serif text-4xl text-[#F5F3EF] md:text-5xl">{project.title}</h3>
-        <p className="mt-4 text-base leading-relaxed text-[#F5F3EF]/70 text-pretty md:text-lg">
+        <h3 className="mt-3 font-serif text-4xl text-fg md:text-5xl">{project.title}</h3>
+        <p className="mt-4 text-base leading-relaxed text-fg/70 text-pretty md:text-lg">
           {project.description}
         </p>
-        <p className="mt-4 font-mono text-xs text-[#F5F3EF]/45 md:text-sm">{project.tech.join("  ·  ")}</p>
+        <p className="mt-4 font-mono text-xs text-fg/45 md:text-sm">{project.tech.join("  ·  ")}</p>
         <div className="mt-6">
           <Links project={project} />
         </div>
@@ -249,7 +249,7 @@ const Projects = () => (
         className="mb-20 text-center md:mb-28"
       >
         <h2 className="mb-4 font-serif text-5xl text-balance md:text-7xl">Projects</h2>
-        <p className="text-lg text-[#F5F3EF]/60 text-pretty">Recent work and experiments</p>
+        <p className="text-lg text-fg/60 text-pretty">Recent work and experiments</p>
       </motion.div>
 
       <div className="space-y-24 md:space-y-36">
@@ -269,9 +269,9 @@ const Projects = () => (
             transition={{ duration: 0.45, delay: (i % 2) * 0.1, ease: EASE }}
           >
             <Shot project={project} />
-            <p className="mt-5 font-mono text-sm text-[#8B7355]">{project.role}</p>
-            <h4 className="mt-1 font-serif text-2xl text-[#F5F3EF]">{project.title}</h4>
-            <p className="mt-2 text-base leading-relaxed text-[#F5F3EF]/65 text-pretty">{project.description}</p>
+            <p className="mt-5 font-mono text-sm text-accent">{project.role}</p>
+            <h4 className="mt-1 font-serif text-2xl text-fg">{project.title}</h4>
+            <p className="mt-2 text-base leading-relaxed text-fg/65 text-pretty">{project.description}</p>
             <div className="mt-4">
               <Links project={project} />
             </div>
@@ -287,10 +287,10 @@ const Projects = () => (
             className="grid gap-3 py-6 md:grid-cols-12 md:items-baseline md:gap-6"
           >
             <div className="md:col-span-4">
-              <p className="font-serif text-xl text-[#F5F3EF]">{project.title}</p>
-              <p className="mt-1 font-mono text-sm text-[#8B7355]">{project.role}</p>
+              <p className="font-serif text-xl text-fg">{project.title}</p>
+              <p className="mt-1 font-mono text-sm text-accent">{project.role}</p>
             </div>
-            <p className="text-base leading-relaxed text-[#F5F3EF]/65 text-pretty md:col-span-5">
+            <p className="text-base leading-relaxed text-fg/65 text-pretty md:col-span-5">
               {project.description}
             </p>
             <div className="md:col-span-3 md:flex md:justify-end">

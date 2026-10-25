@@ -11,7 +11,7 @@ const line = "I build web products end to end, from the database to the last pix
 // Terminal-block CTA: flat square, faint fill, mono label with a leading icon.
 // The ::after extends the hit area to 44px without changing the look.
 const cta =
-  "relative inline-flex items-center gap-2 bg-[#F5F3EF]/[0.06] px-2.5 py-1 font-mono text-sm text-[#A8906F] transition-[background-color,color] duration-150 ease-out after:absolute after:-inset-y-1.5 after:inset-x-0 hover:bg-[#A8906F] hover:text-[#0D0D0D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A8906F]";
+  "relative inline-flex items-center gap-2 bg-fg/[0.06] px-2.5 py-1 font-mono text-sm text-accent-light transition-[background-color,color] duration-150 ease-out after:absolute after:-inset-y-1.5 after:inset-x-0 hover:bg-accent-light hover:text-page focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-light";
 
 const links = [
   { label: "Resume", href: "/Fawaz_Akinola_CV.pdf", Icon: FileText },
@@ -67,13 +67,13 @@ const Hero = () => {
       <div className="pointer-events-none absolute inset-0 bg-film-grain opacity-5" />
 
       <div className="relative z-10 text-center">
-        <motion.p {...fade(0)} className="font-mono text-sm uppercase tracking-widest text-[#8B7355]">
+        <motion.p {...fade(0)} className="font-mono text-sm uppercase tracking-widest text-accent">
           Full Stack Developer · Lagos
         </motion.p>
 
         <h1
           aria-label={name}
-          className="mt-6 font-serif text-6xl leading-[0.95] tracking-tight text-[#F5F3EF] md:text-8xl"
+          className="mt-6 font-serif text-6xl leading-[0.95] tracking-tight text-fg md:text-8xl"
         >
           {name.split(" ").map((word, w, all) => {
             // Letters before this word, so the stagger runs across the whole name.
@@ -96,7 +96,7 @@ const Hero = () => {
 
         <p
           aria-label={line}
-          className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-[#F5F3EF]/70 text-pretty md:text-xl"
+          className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-fg/70 text-pretty md:text-xl"
         >
           {words.map((word, i) => (
             <Fragment key={i}>

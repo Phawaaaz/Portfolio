@@ -7,7 +7,7 @@ const EMAIL = "phawaazakin@gmail.com";
 
 // Terminal-block CTA, same as the hero and projects.
 const cta =
-  "relative inline-flex items-center gap-2 bg-[#F5F3EF]/[0.06] px-2.5 py-1 font-mono text-sm text-[#A8906F] transition-[background-color,color] duration-150 ease-out after:absolute after:-inset-y-1.5 after:inset-x-0 hover:bg-[#A8906F] hover:text-[#0D0D0D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A8906F]";
+  "relative inline-flex items-center gap-2 bg-fg/[0.06] px-2.5 py-1 font-mono text-sm text-accent-light transition-[background-color,color] duration-150 ease-out after:absolute after:-inset-y-1.5 after:inset-x-0 hover:bg-accent-light hover:text-page focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-light";
 
 type Field = "name" | "email" | "message";
 const steps: { key: Field; prompt: string }[] = [
@@ -92,7 +92,7 @@ const Contact = () => {
       <div className="relative z-10 mx-auto w-full max-w-3xl">
         <motion.div {...rise(0)} className="mb-14 text-center">
           <h2 className="mb-4 font-serif text-5xl md:text-7xl">Get In Touch</h2>
-          <p className="text-lg text-[#F5F3EF]/60">Have a project in mind? Let's talk</p>
+          <p className="text-lg text-fg/60">Have a project in mind? Let's talk</p>
         </motion.div>
 
         <motion.form
@@ -106,22 +106,22 @@ const Contact = () => {
             if ((e.target as HTMLElement).closest("input, textarea, button, a")) return;
             focusStep(step);
           }}
-          className="bg-[#F5F3EF]/[0.03] font-mono text-sm shadow-[var(--shadow-border)] md:text-base"
+          className="bg-fg/[0.03] font-mono text-sm shadow-[var(--shadow-border)] md:text-base"
         >
-          <div className="flex items-center justify-between border-b border-[#F5F3EF]/10 px-4 py-2.5 text-xs text-[#F5F3EF]/40">
-            <span className="text-[#A8906F]">contact.sh</span>
+          <div className="flex items-center justify-between border-b border-fg/10 px-4 py-2.5 text-xs text-fg/40">
+            <span className="text-accent-light">contact.sh</span>
             <span>zsh</span>
           </div>
 
           <div className="space-y-2 px-4 py-5 md:px-6 md:py-6">
-            <p className="text-[#F5F3EF]/40">
-              <span className="text-[#A8906F]">~/phawaaz</span> $ ./contact.sh
+            <p className="text-fg/40">
+              <span className="text-accent-light">~/phawaaz</span> $ ./contact.sh
             </p>
-            <p className="pb-2 text-[#F5F3EF]/40"># Press Enter after each answer.</p>
+            <p className="pb-2 text-fg/40"># Press Enter after each answer.</p>
 
             {steps.slice(0, step + 1).map(({ key, prompt }, i) => (
               <div key={key} className="flex items-start gap-2">
-                <label htmlFor={`contact-${key}`} className="shrink-0 text-[#A8906F]">
+                <label htmlFor={`contact-${key}`} className="shrink-0 text-accent-light">
                   &gt; {prompt}:
                 </label>
                 {key === "message" ? (
@@ -133,7 +133,7 @@ const Contact = () => {
                     onChange={(e) => setValues({ ...values, [key]: e.target.value })}
                     onKeyDown={(e) => onKeyDown(e, i)}
                     disabled={sent}
-                    className="min-w-0 flex-1 resize-none bg-transparent text-[#F5F3EF] caret-[#A8906F] outline-none"
+                    className="min-w-0 flex-1 resize-none bg-transparent text-fg caret-accent-light outline-none"
                   />
                 ) : (
                   <input
@@ -145,7 +145,7 @@ const Contact = () => {
                     onChange={(e) => setValues({ ...values, [key]: e.target.value })}
                     onKeyDown={(e) => onKeyDown(e, i)}
                     disabled={sent}
-                    className="min-w-0 flex-1 bg-transparent text-[#F5F3EF] caret-[#A8906F] outline-none"
+                    className="min-w-0 flex-1 bg-transparent text-fg caret-accent-light outline-none"
                   />
                 )}
               </div>
@@ -153,7 +153,7 @@ const Contact = () => {
 
             <p role="status" aria-live="polite" className="min-h-6 pt-1">
               {error && <span className="text-[#D98C6B]">! {error}</span>}
-              {sent && <span className="text-[#A8906F]">✓ opening your mail app…</span>}
+              {sent && <span className="text-accent-light">✓ opening your mail app…</span>}
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-1">
@@ -166,19 +166,19 @@ const Contact = () => {
                   ↺ start over
                 </button>
               )}
-              <span className="text-xs text-[#F5F3EF]/30">
+              <span className="text-xs text-fg/30">
                 step {Math.min(step + 1, steps.length)}/{steps.length}
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 border-t border-[#F5F3EF]/10 px-4 py-2.5 text-xs text-[#F5F3EF]/40">
-            <span className="size-1.5 animate-pulse rounded-full bg-[#A8906F]" aria-hidden="true" />
+          <div className="flex items-center gap-2 border-t border-fg/10 px-4 py-2.5 text-xs text-fg/40">
+            <span className="size-1.5 animate-pulse rounded-full bg-accent-light" aria-hidden="true" />
             Open to new opportunities
           </div>
         </motion.form>
 
-        <motion.div {...rise(0.2)} className="mt-8 flex flex-wrap items-center justify-center gap-3 font-mono text-sm text-[#F5F3EF]/40">
+        <motion.div {...rise(0.2)} className="mt-8 flex flex-wrap items-center justify-center gap-3 font-mono text-sm text-fg/40">
           <span>or:</span>
           <a href="https://wa.me/2349012183194" target="_blank" rel="noopener noreferrer" className={cta}>
             <MessageCircle className="size-4" aria-hidden="true" />
@@ -190,7 +190,7 @@ const Contact = () => {
           </a>
         </motion.div>
 
-        <motion.p {...rise(0.25)} className="mt-6 text-center font-mono text-sm text-[#F5F3EF]/40">
+        <motion.p {...rise(0.25)} className="mt-6 text-center font-mono text-sm text-fg/40">
           elsewhere:{" "}
           {elsewhere.map((link, i) => (
             <span key={link.label}>
@@ -198,7 +198,7 @@ const Contact = () => {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-8 items-center text-[#F5F3EF]/60 underline-offset-4 transition-colors duration-150 hover:text-[#A8906F] hover:underline"
+                className="inline-flex min-h-8 items-center text-fg/60 underline-offset-4 transition-colors duration-150 hover:text-accent-light hover:underline"
               >
                 {link.label}
               </a>

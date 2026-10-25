@@ -54,7 +54,7 @@ const Achievements = () => (
         className="mb-16 text-center"
       >
         <h2 className="mb-4 font-serif text-5xl text-balance md:text-7xl">Credentials</h2>
-        <p className="text-lg text-[#F5F3EF]/60 text-pretty">Study, roles and certificates</p>
+        <p className="text-lg text-fg/60 text-pretty">Study, roles and certificates</p>
       </motion.div>
 
       {groups.map((group, i) => (
@@ -66,12 +66,12 @@ const Achievements = () => (
           transition={{ duration: 0.45, delay: Math.min(i, 3) * 0.05, ease: EASE }}
           className="grid gap-3 py-6 md:grid-cols-[11rem_1fr] md:gap-8"
         >
-          <h3 className="font-mono text-sm text-[#8B7355] md:pt-1">{group.label}</h3>
+          <h3 className="font-mono text-sm text-accent md:pt-1">{group.label}</h3>
           <ul className={`grid gap-4 ${group.columns ? 'sm:grid-cols-2 sm:gap-x-8' : ''}`}>
             {group.items.map((item) => (
               <li key={item.title}>
-                <p className="font-serif text-xl text-[#F5F3EF]">{item.title}</p>
-                <p className="mt-0.5 font-mono text-sm text-[#F5F3EF]/50">{item.issuer}</p>
+                <p className="font-serif text-xl text-fg">{item.title}</p>
+                <p className="mt-0.5 font-mono text-sm text-fg/50">{item.issuer}</p>
               </li>
             ))}
           </ul>

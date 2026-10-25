@@ -73,6 +73,8 @@ const drawAscii = (ctx: CanvasRenderingContext2D, w: number, h: number, t: numbe
   }
   ctx.clearRect(0, 0, w, h);
   ctx.font = `${size - 2}px ui-monospace, Menlo, monospace`;
+  // Follow the theme's bronze (deeper in light mode).
+  const rgb = getComputedStyle(document.documentElement).getPropertyValue("--accent-light").trim().split(/\s+/).join(",") || "168,144,111";
   for (let c = 0; c < cols; c++) {
     const speed = 0.02 + (((c * 31) % 13) / 13) * 0.04;
     const head = ((asciiState.drops[c] + t * speed) % 1.4) * h;
@@ -80,7 +82,7 @@ const drawAscii = (ctx: CanvasRenderingContext2D, w: number, h: number, t: numbe
       const y = head - k * size;
       if (y < 0 || y > h) continue;
       const g = GLYPHS[(c + k + Math.floor(t * 2)) % GLYPHS.length];
-      ctx.fillStyle = `rgba(168,144,111,${0.32 * (1 - k / 7)})`;
+      ctx.fillStyle = `rgba(${rgb},${0.32 * (1 - k / 7)})`;
       ctx.fillText(g, c * size, y);
     }
   }

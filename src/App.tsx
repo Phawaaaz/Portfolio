@@ -10,6 +10,7 @@ import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Navigation from "./components/Navigation";
+import ThemeToggle from "./components/ThemeToggle";
 import { SEO } from "./components/SEO";
 import { SEO_CONFIG } from "./config/seo";
 
@@ -47,8 +48,9 @@ function App() {
       {!preloadComplete && (
         <Preload onComplete={() => setPreloadComplete(true)} />
       )}
-      <div className="bg-[#0D0D0D] text-[#F5F3EF]">
+      <div className="bg-page text-fg">
         <Navigation activeSection={activeSection} />
+        <ThemeToggle />
         <Hero />
         <About />
         <Projects />

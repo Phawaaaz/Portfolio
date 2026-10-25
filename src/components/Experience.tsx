@@ -69,7 +69,7 @@ const Experience = () => (
         className="mb-16 text-center"
       >
         <h2 className="mb-4 font-serif text-5xl text-balance md:text-7xl">Experience</h2>
-        <p className="text-lg text-[#F5F3EF]/60 text-pretty">Where I've worked and learned</p>
+        <p className="text-lg text-fg/60 text-pretty">Where I've worked and learned</p>
       </motion.div>
 
       <ol>
@@ -82,13 +82,13 @@ const Experience = () => (
             transition={{ duration: 0.45, delay: Math.min(i, 3) * 0.05, ease: EASE }}
             className="grid gap-1 py-6 md:grid-cols-[11rem_1fr] md:gap-8"
           >
-            <p className="font-mono text-sm text-[#8B7355] md:pt-1">{item.period}</p>
+            <p className="font-mono text-sm text-accent md:pt-1">{item.period}</p>
             <div>
-              <h3 className="font-serif text-xl text-[#F5F3EF] md:text-2xl">
+              <h3 className="font-serif text-xl text-fg md:text-2xl">
                 {item.role}
-                <span className="ml-3 font-mono text-sm text-[#F5F3EF]/50">{item.company}</span>
+                <span className="ml-3 font-mono text-sm text-fg/50">{item.company}</span>
               </h3>
-              <p className="mt-2 text-base leading-relaxed text-[#F5F3EF]/65 text-pretty">{item.description}</p>
+              <p className="mt-2 text-base leading-relaxed text-fg/65 text-pretty">{item.description}</p>
             </div>
           </motion.li>
         ))}

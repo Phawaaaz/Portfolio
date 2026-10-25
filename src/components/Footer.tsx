@@ -39,7 +39,7 @@ const Footer = () => {
           initial="hidden"
           whileInView="shown"
           viewport={{ once: false, amount: 0.6 }}
-          className="relative font-serif text-6xl leading-[0.95] tracking-tight text-[#F5F3EF] md:text-8xl"
+          className="relative font-serif text-6xl leading-[0.95] tracking-tight text-fg md:text-8xl"
         >
           {["Akinola", "Fawaz"].map((word, w) => (
             <Fragment key={word}>
@@ -63,16 +63,16 @@ const Footer = () => {
       </div>
 
       {/* Terminal-style status bar. Extra bottom padding on phones clears the dot nav. */}
-      <div className="relative bg-[#F5F3EF]/[0.03] pb-20 md:pb-0">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-3 font-mono text-xs text-[#F5F3EF]/50">
+      <div className="relative bg-fg/[0.03] pb-20 md:pb-0">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-3 font-mono text-xs text-fg/50">
           <div className="flex items-center gap-4">
-            <span className="text-[#A8906F]">~/phawaaz/portfolio</span>
+            <span className="text-accent-light">~/phawaaz/portfolio</span>
             <span className="flex items-center gap-1">
               <GitBranch className="size-3.5" aria-hidden="true" />
               main
             </span>
             <span>
-              Lagos <span className="tabular-nums text-[#F5F3EF]/70">{time}</span> WAT
+              Lagos <span className="tabular-nums text-fg/70">{time}</span> WAT
             </span>
           </div>
           <div className="flex items-center gap-4">
@@ -82,7 +82,7 @@ const Footer = () => {
               onClick={() =>
                 window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "instant" : "smooth" })
               }
-              className="inline-flex min-h-8 items-center gap-1 text-[#A8906F] transition-colors duration-150 hover:text-[#F5F3EF]"
+              className="inline-flex min-h-8 items-center gap-1 text-accent-light transition-colors duration-150 hover:text-fg"
             >
               <ArrowUp className="size-3.5" aria-hidden="true" />
               Back to top

@@ -62,14 +62,14 @@ const About = () => {
 
       <div className="relative mx-auto max-w-5xl">
         <motion.div {...rise} transition={{ duration: 0.45, ease: EASE }} className="flex items-baseline justify-between gap-6">
-          <h2 className="font-serif text-4xl text-[#8B7355] md:text-5xl">About</h2>
-          <p className="font-mono text-sm text-[#F5F3EF]/50">Lagos, Nigeria</p>
+          <h2 className="font-serif text-4xl text-accent md:text-5xl">About</h2>
+          <p className="font-mono text-sm text-fg/50">Lagos, Nigeria</p>
         </motion.div>
 
         <p
           ref={statementRef}
           aria-label={statement}
-          className="relative mt-10 font-serif text-3xl leading-[1.25] text-[#F5F3EF] md:mt-14 md:text-5xl"
+          className="relative mt-10 font-serif text-3xl leading-[1.25] text-fg md:mt-14 md:text-5xl"
         >
           {words.map((word, i) => (
             <Word key={i} word={word} range={[i / words.length, (i + 1) / words.length]} progress={scrollYProgress} />
@@ -84,10 +84,10 @@ const About = () => {
           >
             {proof.map((item) => (
               <div key={item.label}>
-                <dd className="font-serif text-5xl text-[#F5F3EF] md:text-6xl">
+                <dd className="font-serif text-5xl text-fg md:text-6xl">
                   <CountUp to={item.value} />
                 </dd>
-                <dt className="mt-2 font-mono text-xs leading-snug text-[#A8906F] md:text-sm">{item.label}</dt>
+                <dt className="mt-2 font-mono text-xs leading-snug text-accent-light md:text-sm">{item.label}</dt>
               </div>
             ))}
           </motion.dl>
@@ -96,7 +96,7 @@ const About = () => {
         <motion.div {...rise} transition={{ duration: 0.45, delay: 0.15, ease: EASE }} className="mt-12">
           <a
             href="mailto:phawaazakin@gmail.com"
-            className="relative inline-flex items-center gap-2 bg-[#F5F3EF]/[0.06] px-2.5 py-1 font-mono text-sm text-[#A8906F] transition-[background-color,color] duration-150 ease-out after:absolute after:-inset-y-1.5 after:inset-x-0 hover:bg-[#A8906F] hover:text-[#0D0D0D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A8906F]"
+            className="relative inline-flex items-center gap-2 bg-fg/[0.06] px-2.5 py-1 font-mono text-sm text-accent-light transition-[background-color,color] duration-150 ease-out after:absolute after:-inset-y-1.5 after:inset-x-0 hover:bg-accent-light hover:text-page focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-light"
           >
             <Mail className="size-4" aria-hidden="true" />
             Get in touch

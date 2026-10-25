@@ -35,7 +35,7 @@ const Reviews = () => {
           className="mb-16 text-center"
         >
           <h2 className="mb-4 font-serif text-5xl text-balance md:text-7xl">Kind words</h2>
-          <p className="text-lg text-[#F5F3EF]/60 text-pretty">From people I've built with</p>
+          <p className="text-lg text-fg/60 text-pretty">From people I've built with</p>
         </motion.div>
 
         <div className={`grid gap-x-12 gap-y-14 ${reviews.length > 1 ? "md:grid-cols-2" : "mx-auto max-w-3xl"}`}>
@@ -46,14 +46,14 @@ const Reviews = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, margin: "0px 0px -10% 0px" }}
               transition={{ duration: 0.45, delay: (i % 2) * 0.1, ease: EASE }}
-              className="border-l-2 border-[#8B7355]/40 pl-6"
+              className="border-l-2 border-accent/40 pl-6"
             >
-              <blockquote className="font-serif text-xl leading-relaxed text-[#F5F3EF] text-pretty md:text-2xl">
+              <blockquote className="font-serif text-xl leading-relaxed text-fg text-pretty md:text-2xl">
                 “{review.quote}”
               </blockquote>
               <figcaption className="mt-5">
-                <p className="text-base text-[#F5F3EF]/85">{review.name}</p>
-                <p className="mt-0.5 font-mono text-sm text-[#8B7355]">{review.role}</p>
+                <p className="text-base text-fg/85">{review.name}</p>
+                <p className="mt-0.5 font-mono text-sm text-accent">{review.role}</p>
               </figcaption>
             </motion.figure>
           ))}

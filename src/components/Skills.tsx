@@ -26,7 +26,7 @@ const Skills = () => (
         className="mb-16 text-center"
       >
         <h2 className="mb-4 font-serif text-5xl text-balance md:text-7xl">Tech Stack</h2>
-        <p className="text-lg text-[#F5F3EF]/60 text-pretty">Tools I use to build</p>
+        <p className="text-lg text-fg/60 text-pretty">Tools I use to build</p>
       </motion.div>
 
       {skillGroups.map((group, i) => (
@@ -38,12 +38,12 @@ const Skills = () => (
           transition={{ duration: 0.45, delay: Math.min(i, 3) * 0.05, ease: EASE }}
           className="grid gap-3 py-6 md:grid-cols-[11rem_1fr] md:gap-8"
         >
-          <h3 className="font-mono text-sm text-[#8B7355] md:pt-1.5">{group.label}</h3>
+          <h3 className="font-mono text-sm text-accent md:pt-1.5">{group.label}</h3>
           <ul className="flex flex-wrap gap-x-2 gap-y-3">
             {group.items.map((item) => (
               <li
                 key={item}
-                className="bg-[#F5F3EF]/[0.04] px-2.5 py-1 font-mono text-sm text-[#F5F3EF]/75"
+                className="bg-fg/[0.04] px-2.5 py-1 font-mono text-sm text-fg/75"
               >
                 {item}
               </li>
