@@ -80,7 +80,7 @@ const Experience = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, margin: "0px 0px -8% 0px" }}
             transition={{ duration: 0.45, delay: Math.min(i, 3) * 0.05, ease: EASE }}
-            className="grid gap-1 border-t border-[#F5F3EF]/10 py-6 md:grid-cols-[11rem_1fr] md:gap-8"
+            className="grid gap-1 py-6 md:grid-cols-[11rem_1fr] md:gap-8"
           >
             <p className="font-mono text-sm text-[#8B7355] md:pt-1">{item.period}</p>
             <div>

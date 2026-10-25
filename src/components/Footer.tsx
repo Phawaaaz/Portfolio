@@ -28,7 +28,7 @@ const Footer = () => {
   const time = useLagosTime();
 
   return (
-    <footer className="relative overflow-hidden border-t border-[#F5F3EF]/10">
+    <footer className="relative overflow-hidden">
       <div className="absolute inset-0 opacity-5 bg-film-grain" />
 
       {/* Sign-off, echoing the hero: the name rises letter by letter over the same ASCII rain. */}
@@ -63,7 +63,7 @@ const Footer = () => {
       </div>
 
       {/* Terminal-style status bar. Extra bottom padding on phones clears the dot nav. */}
-      <div className="relative border-t border-[#F5F3EF]/10 bg-[#F5F3EF]/[0.03] pb-20 md:pb-0">
+      <div className="relative bg-[#F5F3EF]/[0.03] pb-20 md:pb-0">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-3 font-mono text-xs text-[#F5F3EF]/50">
           <div className="flex items-center gap-4">
             <span className="text-[#A8906F]">~/phawaaz/portfolio</span>

@@ -284,7 +284,7 @@ const Projects = () => (
         {codeOnly.map((project) => (
           <li
             key={project.title}
-            className="grid gap-3 border-t border-[#F5F3EF]/10 py-6 md:grid-cols-12 md:items-baseline md:gap-6"
+            className="grid gap-3 py-6 md:grid-cols-12 md:items-baseline md:gap-6"
           >
             <div className="md:col-span-4">
               <p className="font-serif text-xl text-[#F5F3EF]">{project.title}</p>
