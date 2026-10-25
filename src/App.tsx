@@ -16,24 +16,9 @@ import { SEO_CONFIG } from "./config/seo";
 
 function App() {
   const [activeSection, setActiveSection] = useState(0);
-  // The preload screen shows once per visit; a refresh in the same tab skips it.
-  const [seenPreload] = useState(() => {
-    try {
-      return sessionStorage.getItem("preloaded") === "1";
-    } catch {
-      return false;
-    }
-  });
-  const [revealed, setRevealed] = useState(seenPreload);
-  const [preloadGone, setPreloadGone] = useState(seenPreload);
-  const handleReveal = useCallback(() => {
-    setRevealed(true);
-    try {
-      sessionStorage.setItem("preloaded", "1");
-    } catch {
-      // Storage blocked: the preload just shows again next time.
-    }
-  }, []);
+  const [revealed, setRevealed] = useState(false);
+  const [preloadGone, setPreloadGone] = useState(false);
+  const handleReveal = useCallback(() => setRevealed(true), []);
   const handleDone = useCallback(() => setPreloadGone(true), []);
 
   useEffect(() => {

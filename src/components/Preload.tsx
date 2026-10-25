@@ -8,8 +8,8 @@ interface PreloadProps {
   onDone: () => void;
 }
 
-const MIN_MS = 700; // never flash for a split second
-const MAX_MS = 2500; // never hold a visitor longer than this
+const DURATION_MS = 1800; // the counter's run from 000 to 100
+const MAX_MS = 2500; // if the page is slow, wait at most this long
 
 const EASE = [0.76, 0, 0.24, 1] as const;
 
@@ -22,7 +22,7 @@ const pageReady = () =>
       : new Promise<void>((r) => window.addEventListener("load", () => r(), { once: true })),
   ]);
 
-// Shown once per visit: the "A." mark with a blinking bronze full stop and a
+// Shown on every load: the "A." mark with a blinking bronze full stop and a
 // counter that tracks real loading, then a curtain that lifts off the hero.
 const Preload = ({ onReveal, onDone }: PreloadProps) => {
   const [count, setCount] = useState(0);
@@ -37,16 +37,13 @@ const Preload = ({ onReveal, onDone }: PreloadProps) => {
 
     pageReady().then(() => (loaded = true));
 
-    // The counter eases towards 90% while loading, runs to 100 once ready,
-    // and the curtain lifts only after it has shown 100.
-    let value = 0;
+    // Timed run: the counter eases from 000 to 100 over DURATION_MS, then the
+    // curtain lifts (waiting a little longer only if the page isn't ready yet).
     const tick = (now: number) => {
       const elapsed = now - start;
-      const done = (loaded && elapsed >= MIN_MS) || elapsed >= MAX_MS;
-      const target = done ? 100 : 90;
-      value = Math.min(target, value + Math.max(1, (target - value) * (done ? 0.25 : 0.06)));
-      setCount(Math.round(value));
-      if (Math.round(value) >= 100) {
+      const p = Math.min(1, elapsed / DURATION_MS);
+      setCount(Math.round(100 * (1 - Math.pow(1 - p, 3))));
+      if (p >= 1 && (loaded || elapsed >= MAX_MS)) {
         liftTimer = setTimeout(() => {
           setLifting(true);
           onReveal();
