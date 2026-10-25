@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { Moon, Sun } from "lucide-react";
 
 type Theme = "dark" | "light";
@@ -8,28 +9,56 @@ type Theme = "dark" | "light";
 const currentTheme = (): Theme =>
   document.documentElement.dataset.theme === "light" ? "light" : "dark";
 
+const applyTheme = (theme: Theme) => {
+  document.documentElement.dataset.theme = theme;
+  document
+    .querySelector('meta[name="theme-color"]')
+    ?.setAttribute("content", theme === "light" ? "#F5F3EF" : "#0D0D0D");
+  try {
+    localStorage.setItem("theme", theme);
+  } catch {
+    // Private mode or blocked storage: the choice just won't be remembered.
+  }
+};
+
 const ThemeToggle = () => {
   const [theme, setTheme] = useState<Theme>(currentTheme);
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "light" ? "#F5F3EF" : "#0D0D0D");
-  }, [theme]);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const toggle = () => {
     const next: Theme = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    try {
-      localStorage.setItem("theme", next);
-    } catch {
-      // Private mode or blocked storage: the choice just won't be remembered.
+    const swap = () =>
+      flushSync(() => {
+        applyTheme(next);
+        setTheme(next);
+      });
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!document.startViewTransition || reduced || !buttonRef.current) {
+      swap();
+      return;
     }
+
+    // Grow a circle from the button's centre until it covers the farthest corner.
+    const { left, top, width, height } = buttonRef.current.getBoundingClientRect();
+    const x = left + width / 2;
+    const y = top + height / 2;
+    const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+
+    const transition = document.startViewTransition(swap);
+    transition.ready.then(() => {
+      document.documentElement.animate(
+        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+        { duration: 650, easing: "cubic-bezier(0.65, 0, 0.35, 1)", pseudoElement: "::view-transition-new(root)" }
+      );
+    });
   };
 
   const Icon = theme === "dark" ? Sun : Moon;
 
   return (
     <button
+      ref={buttonRef}
       type="button"
       onClick={toggle}
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
