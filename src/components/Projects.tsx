@@ -1,203 +1,313 @@
-import { useState, useEffect, useRef } from "react";
-import { ExternalLink, Github } from "lucide-react";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowUpRight, Github } from "lucide-react";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 interface Project {
   title: string;
+  role: string;
   description: string;
   tech: string[];
-  github?: string;
   live?: string;
-  category: "Full-Stack" | "Backend" | "Frontend";
+  github?: string;
+  /** File in public/projects/ */
+  image?: string;
 }
 
-const projects: Project[] = [
+// Screenshots taken from each live site on 25 Oct 2026.
+const featured: Project[] = [
   {
-    title: "Visitor Management System",
-    description: "Platform for visitor registration and management with separate frontend and backend services",
-    tech: ["React", "Node.js", "Express", "MongoDB"],
-    github: "https://github.com/phawaaaz/backendRevamp",
-    live: "https://project-demo-cyan.vercel.app",
-    category: "Full-Stack",
+    title: "AMEN Awards",
+    role: "Backend engineer",
+    description:
+      "The awards platform for AMEN, the home of African Christian creatives. I built much of the API behind nominations, judging and voting: the judge's desk with conflict declarations and scoring, held-vote review, case handling, role-based access, nominee photo uploads to R2 and double opt-in email.",
+    tech: ["Node.js", "Express", "PostgreSQL", "Prisma", "Redis", "Zod"],
+    live: "https://awards.amen.africa",
+    image: "amen.jpg",
   },
   {
-    title: "Natours",
-    description: "Full-stack Node.js tour booking application with authentication, payments, and reviews",
-    tech: ["Node.js", "Express", "MongoDB", "Pug"],
-    github: "https://github.com/phawaaaz/node_practice",
-    category: "Full-Stack",
+    title: "CardioEcg",
+    role: "Full stack",
+    description:
+      "AI-assisted ECG analysis for clinical review: upload an ECG export and get an interpretation back from a prediction model, with a clear upload, analysis and results flow.",
+    tech: ["Next.js", "React", "TypeScript", "Framer Motion"],
+    live: "https://ecgcardio.vercel.app",
+    github: "https://github.com/phawaaaz/ECG-",
+    image: "cardio.jpg",
   },
   {
-    title: "Event Management API",
-    description: "RESTful API for event creation, registration, and management with real-time updates",
-    tech: ["Node.js", "Express", "MongoDB", "WebSockets"],
-    github: "https://github.com/phawaaaz/eventmanagementApi",
-    category: "Backend",
+    title: "Triage Engine",
+    role: "Design & frontend",
+    description:
+      "The website for AgendaX's Triage Engine, which spots the early signals of a reputational crisis, scores them and drafts the response. Five visual directions were explored before this one.",
+    tech: ["Next.js", "TypeScript", "CSS"],
+    live: "https://triage-engine-azure.vercel.app",
+    github: "https://github.com/phawaaaz/triage-engine",
+    image: "triage.jpg",
   },
   {
-    title: "Smart Campus Map",
-    description: "Interactive campus navigation system with building information and route planning",
-    tech: ["React", "TypeScript", "LeafletJS", "Tailwind"],
-    github: "https://github.com/phawaaaz/Csc420_fe",
-    live: "https://csc420-fe.vercel.app",
-    category: "Frontend",
+    title: "Oneday",
+    role: "Design & frontend",
+    description:
+      "A shared list for your people that turns into the story of what you did together. Landing page with an early-access sign-up.",
+    tech: ["React", "TypeScript", "Vite"],
+    live: "https://oneday-iota.vercel.app",
+    github: "https://github.com/phawaaaz/Oneday",
+    image: "oneday.jpg",
   },
   {
-    title: "Weather Dashboard",
-    description: "Real-time weather application with forecasts and location-based alerts",
-    tech: ["React", "OpenWeather API", "Chart.js"],
-    github: "https://github.com/phawaaaz/Weather-app",
-    category: "Frontend",
+    title: "WatchParty",
+    role: "Full stack",
+    description:
+      "Watch videos together with synced playback: host or join a room, chat while you watch, and discover what others are watching.",
+    tech: ["React", "TypeScript", "Socket.IO", "Zustand"],
+    live: "https://watchwhatev.vercel.app",
+    github: "https://github.com/phawaaaz/watchparty",
+    image: "watchparty.jpg",
   },
   {
-    title: "AI Note Taking",
-    description: "Intelligent note-taking application with AI-powered summaries and organization",
-    tech: ["Next.js", "OpenAI API", "MongoDB", "Prisma"],
-    github: "https://github.com/phawaaaz/ai-notes",
-    category: "Full-Stack",
+    title: "AgentArch",
+    role: "Architecture",
+    description:
+      "Architecture, data model and technology stack for an internal AI agent management platform: agents, tools, skills, memory, sessions and deployments in one control plane.",
+    tech: ["System design", "LLMs", "HTML"],
+    live: "https://agentarch.vercel.app",
+    github: "https://github.com/phawaaaz/agentic",
+    image: "agentarch.jpg",
   },
 ];
 
-const Projects = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const sectionRef = useRef<HTMLElement>(null);
+const more: Project[] = [
+  {
+    title: "ASOL Business Solutions",
+    role: "Client site",
+    description: "Company website for a Nigerian firm offering micro-credit and business advisory.",
+    tech: ["Next.js", "TypeScript", "Tailwind"],
+    live: "https://asol-ecru.vercel.app",
+    github: "https://github.com/phawaaaz/Asolbss",
+    image: "asol.jpg",
+  },
+  {
+    title: "AcemyX Revamp",
+    role: "Frontend",
+    description: "Redesigned landing page for AcemyX, an exam-prep platform, with mobile scroll animations.",
+    tech: ["React", "TypeScript", "Tailwind"],
+    live: "https://acemyxrevamp.vercel.app",
+    github: "https://github.com/phawaaaz/Acemyxrevamp",
+    image: "acemyx.jpg",
+  },
+  {
+    title: "Visitor Management",
+    role: "Full stack",
+    description: "Visitor registration and management, with separate frontend and backend services.",
+    tech: ["React", "Node.js", "Express", "MongoDB"],
+    live: "https://project-demo-cyan.vercel.app",
+    github: "https://github.com/phawaaaz/backendRevamp",
+    image: "vms.jpg",
+  },
+  {
+    title: "Easybank",
+    role: "Frontend",
+    description: "Responsive landing page for a digital bank.",
+    tech: ["HTML", "CSS"],
+    live: "https://easybank-kappa-eight.vercel.app",
+    github: "https://github.com/phawaaaz/easybank",
+    image: "easybank.jpg",
+  },
+];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
+const codeOnly: Project[] = [
+  {
+    title: "Agentic Harness",
+    role: "AI tooling",
+    description: "Wraps any LLM in a tool-use loop to read and write files, run commands and finish real tasks.",
+    tech: ["Python", "Docker", "MCP"],
+    github: "https://github.com/phawaaaz/agentpy",
+  },
+  {
+    title: "PurseFlow",
+    role: "Full stack",
+    description: "Reads bank alert emails from UBA, Kuda, OPay and Paystack through Gmail and turns them into tracked transactions.",
+    tech: ["Next.js", "Express", "PostgreSQL", "Gmail API"],
+    github: "https://github.com/phawaaaz/budget-client",
+  },
+  {
+    title: "StarterPack Auth API",
+    role: "Backend",
+    description: "Auth starter with refresh-token rotation and reuse detection, argon2id hashing and Swagger docs from Zod.",
+    tech: ["TypeScript", "Express", "PostgreSQL", "Prisma"],
+    github: "https://github.com/phawaaaz/backendtemplate",
+  },
+  {
+    title: "Smart Campus Map",
+    role: "Frontend",
+    description: "Campus navigation for the University of Ilorin with building information and route planning.",
+    tech: ["React", "TypeScript", "Leaflet"],
+    live: "https://csc420-fe.vercel.app",
+    github: "https://github.com/phawaaaz/Csc420_fe",
+  },
+];
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+// Terminal-block CTA, same as the hero.
+const cta =
+  "relative inline-flex items-center gap-2 bg-[#F5F3EF]/[0.06] px-2.5 py-1 font-mono text-sm text-[#A8906F] transition-[background-color,color] duration-150 ease-out after:absolute after:-inset-y-1.5 after:inset-x-0 hover:bg-[#A8906F] hover:text-[#0D0D0D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A8906F]";
 
-    return () => observer.disconnect();
-  }, []);
+const Links = ({ project }: { project: Project }) => (
+  <div className="flex flex-wrap gap-3">
+    {project.live && (
+      <a href={project.live} target="_blank" rel="noopener noreferrer" className={cta}>
+        <ArrowUpRight className="size-4" aria-hidden="true" />
+        Live site
+      </a>
+    )}
+    {project.github && (
+      <a href={project.github} target="_blank" rel="noopener noreferrer" className={cta}>
+        <Github className="size-4" aria-hidden="true" />
+        Code
+      </a>
+    )}
+  </div>
+);
+
+// Screenshot toned to the dark theme at rest; full colour on hover.
+const Shot = ({ project, className = "" }: { project: Project; className?: string }) => (
+  <a
+    href={project.live}
+    target="_blank"
+    rel="noopener noreferrer"
+    tabIndex={-1}
+    aria-hidden="true"
+    className={`group/shot block overflow-hidden rounded-lg bg-[#1A1A1A] shadow-[var(--shadow-border)] ${className}`}
+  >
+    <img
+      src={`/projects/${project.image}`}
+      alt=""
+      loading="lazy"
+      width={1280}
+      height={800}
+      className="aspect-[16/10] w-full object-cover object-top outline outline-1 -outline-offset-1 outline-white/10 transition-[filter,transform] duration-700 ease-out [filter:grayscale(0.85)_sepia(0.25)_brightness(0.72)] group-hover/shot:scale-[1.03] group-hover/shot:[filter:none]"
+    />
+  </a>
+);
+
+const FeaturedRow = ({ project, index }: { project: Project; index: number }) => {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  // The screenshot drifts a little against the scroll.
+  const y = useTransform(scrollYProgress, [0, 1], ["6%", "-6%"]);
+  const flip = index % 2 === 1;
 
   return (
-    <section
-      ref={sectionRef}
-      data-section
-      className="relative py-24 px-6 overflow-hidden"
-    >
-      <div className="absolute inset-0 opacity-5 bg-film-grain" />
+    <article ref={ref} className="relative grid items-center gap-8 md:grid-cols-12 md:gap-12">
+      <motion.div
+        style={{ y }}
+        initial={{ clipPath: "inset(100% 0% 0% 0%)" }}
+        whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
+        viewport={{ once: true, margin: "0px 0px -15% 0px" }}
+        transition={{ duration: 1.1, ease: EASE }}
+        className={`md:col-span-7 ${flip ? "md:order-2" : ""}`}
+      >
+        <Shot project={project} />
+      </motion.div>
 
-      <div className="relative z-10 max-w-7xl mx-auto">
-        <h2
-          className={`text-5xl md:text-7xl font-serif text-center mb-4 transition-[opacity,transform] duration-1000 text-balance ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-          }`}
-        >
-          Projects
-        </h2>
-        <p
-          className={`text-center text-lg text-[#F5F3EF]/60 mb-16 transition-[opacity,transform] duration-1000 delay-200 text-pretty ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-          }`}
-        >
-          Recent work and experiments
+      <motion.div
+        initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "0px 0px -15% 0px" }}
+        transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
+        className={`md:col-span-5 ${flip ? "md:order-1" : ""}`}
+      >
+        <p className="font-mono text-sm text-[#8B7355]">
+          <span className="tabular-nums">{String(index + 1).padStart(2, "0")}</span>
+          <span className="mx-2 text-[#F5F3EF]/30">/</span>
+          {project.role}
         </p>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className={`group transition-[opacity,transform] duration-700 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-              } ${hoveredIndex === index ? "-translate-y-2 scale-[1.02]" : ""}`}
-              style={{ transitionDelay: `${index * 100}ms` }}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-            >
-              <div className="relative h-full bg-[#1A1A1A] rounded-lg p-6 shadow-[var(--shadow-border)] hover:shadow-[0_4px_24px_rgba(139,115,85,0.15)] transition-[box-shadow] duration-300">
-                {/* Gradient overlay on hover */}
-                <div className={`absolute inset-0 bg-gradient-to-br from-[#8B7355]/10 to-[#2D9596]/10 rounded-lg transition-opacity duration-500 ${
-                  hoveredIndex === index ? "opacity-100" : "opacity-0"
-                }`} />
-                {/* Category Badge */}
-                <div className="flex items-center justify-between mb-4 relative z-10">
-                  <span className={`text-xs font-mono text-[#8B7355] px-2 py-1 rounded border border-[#8B7355]/30 transition-all duration-300 ${
-                    hoveredIndex === index ? "bg-[#8B7355]/10" : ""
-                  }`}>
-                    {project.category}
-                  </span>
-                  <div className="flex gap-2">
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="relative text-[#F5F3EF]/50 hover:text-[#8B7355] transition-colors duration-300 active:scale-[0.96] after:absolute after:-inset-3"
-                      >
-                        <Github className="w-5 h-5" />
-                      </a>
-                    )}
-                    {project.live && (
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="relative text-[#F5F3EF]/50 hover:text-[#8B7355] transition-colors duration-300 active:scale-[0.96] after:absolute after:-inset-3"
-                      >
-                        <ExternalLink className="w-5 h-5" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-
-                {/* Title */}
-                <h3 className="text-xl font-serif mb-3 text-[#F5F3EF] group-hover:text-[#8B7355] transition-colors duration-300 relative z-10 text-pretty">
-                  {project.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-sm text-[#F5F3EF]/70 leading-relaxed mb-4 relative z-10 text-pretty">
-                  {project.description}
-                </p>
-
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2 relative z-10">
-                  {project.tech.map((tech, i) => (
-                    <span
-                      key={i}
-                      className={`text-xs font-mono text-[#F5F3EF]/60 bg-[#F5F3EF]/5 px-2 py-1 rounded transition-all duration-300 ${
-                        hoveredIndex === index ? "bg-[#F5F3EF]/10 text-[#F5F3EF]/80" : ""
-                      }`}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
+        <h3 className="mt-3 font-serif text-4xl text-[#F5F3EF] md:text-5xl">{project.title}</h3>
+        <p className="mt-4 text-base leading-relaxed text-[#F5F3EF]/70 text-pretty md:text-lg">
+          {project.description}
+        </p>
+        <p className="mt-4 font-mono text-xs text-[#F5F3EF]/45 md:text-sm">{project.tech.join("  ·  ")}</p>
+        <div className="mt-6">
+          <Links project={project} />
         </div>
-
-        <div
-          className={`mt-16 text-center transition-all duration-1000 delay-500 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-          }`}
-        >
-          <a
-            href="https://github.com/phawaaaz"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-[#8B7355] font-mono text-sm hover:text-[#F5F3EF] transition-colors duration-300 group active:scale-[0.96]"
-          >
-            View all projects on GitHub
-            <span className="transform group-hover:translate-x-1 transition-transform duration-300">
-              →
-            </span>
-          </a>
-        </div>
-      </div>
-    </section>
+      </motion.div>
+    </article>
   );
 };
+
+const Projects = () => (
+  <section data-section className="relative overflow-hidden px-6 py-24">
+    <div className="absolute inset-0 opacity-5 bg-film-grain" />
+
+    <div className="relative z-10 mx-auto max-w-6xl">
+      <motion.div
+        initial={{ opacity: 0, y: 32 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, ease: EASE }}
+        className="mb-20 text-center md:mb-28"
+      >
+        <h2 className="mb-4 font-serif text-5xl text-balance md:text-7xl">Projects</h2>
+        <p className="text-lg text-[#F5F3EF]/60 text-pretty">Recent work and experiments</p>
+      </motion.div>
+
+      <div className="space-y-24 md:space-y-36">
+        {featured.map((project, i) => (
+          <FeaturedRow key={project.title} project={project} index={i} />
+        ))}
+      </div>
+
+      <h3 className="mb-10 mt-32 font-serif text-3xl md:mt-44 md:text-4xl">More shipped work</h3>
+      <div className="grid gap-x-8 gap-y-14 sm:grid-cols-2">
+        {more.map((project, i) => (
+          <motion.article
+            key={project.title}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+            transition={{ duration: 0.8, delay: (i % 2) * 0.1, ease: EASE }}
+          >
+            <Shot project={project} />
+            <p className="mt-5 font-mono text-sm text-[#8B7355]">{project.role}</p>
+            <h4 className="mt-1 font-serif text-2xl text-[#F5F3EF]">{project.title}</h4>
+            <p className="mt-2 text-base leading-relaxed text-[#F5F3EF]/65 text-pretty">{project.description}</p>
+            <div className="mt-4">
+              <Links project={project} />
+            </div>
+          </motion.article>
+        ))}
+      </div>
+
+      <h3 className="mb-6 mt-28 font-serif text-3xl md:text-4xl">In the code</h3>
+      <ul>
+        {codeOnly.map((project) => (
+          <li
+            key={project.title}
+            className="grid gap-3 border-t border-[#F5F3EF]/10 py-6 md:grid-cols-12 md:items-baseline md:gap-6"
+          >
+            <div className="md:col-span-4">
+              <p className="font-serif text-xl text-[#F5F3EF]">{project.title}</p>
+              <p className="mt-1 font-mono text-sm text-[#8B7355]">{project.role}</p>
+            </div>
+            <p className="text-base leading-relaxed text-[#F5F3EF]/65 text-pretty md:col-span-5">
+              {project.description}
+            </p>
+            <div className="md:col-span-3 md:flex md:justify-end">
+              <Links project={project} />
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div className="mt-16 text-center">
+        <a href="https://github.com/phawaaaz" target="_blank" rel="noopener noreferrer" className={cta}>
+          <Github className="size-4" aria-hidden="true" />
+          All projects on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+);
 
 export default Projects;

@@ -1,83 +1,58 @@
-import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
-const skillGroups = {
-  Frontend: ["React", "Next.js", "Tailwind CSS", "Redux Toolkit"],
-  Backend: ["Node.js", "Express", "GraphQL", "REST API", "WebSockets"],
-  Database: ["PostgreSQL", "MongoDB", "Redis"],
-  Tools: ["Git", "VsCode", "Vercel", "Postman"],
-  Principles: [
-    "Clean Architecture",
-    "System Thinking",
-    "Scalable Design",
-    "Agile Methodologies",
-    "TDD",
-    "OOP",
-  ],
-};
+const EASE = [0.22, 1, 0.36, 1] as const;
 
-const Skills = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
+// Tools used across the projects and roles on this site.
+const skillGroups: { label: string; items: string[] }[] = [
+  { label: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Redux Toolkit", "Framer Motion"] },
+  { label: "Backend", items: ["Node.js", "Express", "REST APIs", "GraphQL", "Socket.IO", "Zod"] },
+  { label: "Data", items: ["PostgreSQL", "Prisma", "MongoDB", "Redis"] },
+  { label: "Cloud & DevOps", items: ["Linux", "Bash scripting", "Cron jobs", "AWS (IAM)", "GCP (IAM)", "Docker", "GitHub Actions", "Vercel", "Cloudflare R2"] },
+  { label: "Tools", items: ["Git", "Postman"] },
+  { label: "Principles", items: ["Clean Architecture", "System Thinking", "Scalable Design", "TDD", "OOP"] },
+  { label: "Learning now", items: ["Go", "Java"] },
+];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.2 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+const Skills = () => (
+  <section data-section className="relative overflow-hidden px-6 py-24">
+    <div className="absolute inset-0 opacity-5 bg-film-grain" />
 
-  return (
-    <section
-      ref={sectionRef}
-      data-section
-      className="min-h-screen py-24 px-6 relative flex flex-col items-center justify-center"
-    >
-      <div className="absolute inset-0 opacity-5 bg-film-grain" />
-
-      <h2
-        className={`text-5xl md:text-7xl font-serif text-center mb-4 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+    <div className="relative mx-auto w-full max-w-4xl">
+      <motion.div
+        initial={{ opacity: 0, y: 32 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, ease: EASE }}
+        className="mb-16 text-center"
       >
-        Tech Stack
-      </h2>
+        <h2 className="mb-4 font-serif text-5xl text-balance md:text-7xl">Tech Stack</h2>
+        <p className="text-lg text-[#F5F3EF]/60 text-pretty">Tools I use to build</p>
+      </motion.div>
 
-      <p
-        className={`text-center text-lg text-[#F5F3EF]/60 mb-16 transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-      >
-        Tools I use to build
-      </p>
-
-      <div className="max-w-7xl w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12">
-        {Object.entries(skillGroups).map(([category, skills], i) => (
-          <div
-            key={category}
-            className={`transition-all duration-1000 ${isVisible
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-8"
-              }`}
-            style={{ transitionDelay: `${i * 100}ms` }}
-          >
-            <h3 className="text-[#8B7355] font-mono text-sm mb-4 tracking-wider uppercase">
-              {category}
-            </h3>
-            <ul className="space-y-2">
-              {skills.map((skill) => (
-                <li
-                  key={skill}
-                  className="text-[#F5F3EF]/70 text-sm border-l-2 border-[#8B7355]/30 pl-3 hover:border-[#8B7355] hover:text-[#F5F3EF] transition-all duration-300"
-                >
-                  {skill}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-};
+      {skillGroups.map((group, i) => (
+        <motion.div
+          key={group.label}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "0px 0px -8% 0px" }}
+          transition={{ duration: 0.6, delay: Math.min(i, 3) * 0.05, ease: EASE }}
+          className="grid gap-3 border-t border-[#F5F3EF]/10 py-6 md:grid-cols-[11rem_1fr] md:gap-8"
+        >
+          <h3 className="font-mono text-sm text-[#8B7355] md:pt-1.5">{group.label}</h3>
+          <ul className="flex flex-wrap gap-x-2 gap-y-3">
+            {group.items.map((item) => (
+              <li
+                key={item}
+                className="bg-[#F5F3EF]/[0.04] px-2.5 py-1 font-mono text-sm text-[#F5F3EF]/75"
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      ))}
+    </div>
+  </section>
+);
 
 export default Skills;

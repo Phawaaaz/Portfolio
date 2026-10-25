@@ -1,171 +1,84 @@
-import { useEffect, useRef, useState } from 'react';
-import { GraduationCap, Award, Code, Users } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 interface Credential {
-  icon: typeof Award;
   title: string;
-  organization: string;
-  type: 'Education' | 'Certification' | 'Leadership' | 'Community';
+  issuer: string;
 }
 
-const credentials: Credential[] = [
+// Matches the CV (Oct 2026). Grouped and plain, same rhythm as Experience.
+const groups: { label: string; items: Credential[]; columns?: boolean }[] = [
   {
-    icon: GraduationCap,
-    title: 'Bachelor of Computer Science',
-    organization: 'University of Ilorin',
-    type: 'Education',
+    label: 'Education',
+    items: [{ title: 'BSc Computer Science', issuer: 'University of Ilorin, 2021 – 2025' }],
   },
   {
-    icon: Users,
-    title: 'Welfare Secretary & PRO',
-    organization: 'NACOSS - National Association of Computer Science Students',
-    type: 'Leadership',
+    label: 'Leadership',
+    items: [{ title: 'Welfare Secretary & PRO', issuer: 'NACOSS, University of Ilorin' }],
   },
   {
-    icon: Code,
-    title: 'JavaScript Programming',
-    organization: 'Meta',
-    type: 'Certification',
+    label: 'Community',
+    items: [
+      { title: 'Google Developer Student Club', issuer: 'Google Developers' },
+      { title: 'Microsoft Learn Student Ambassador', issuer: 'Microsoft' },
+    ],
   },
   {
-    icon: Code,
-    title: 'React - The Complete Guide',
-    organization: 'Jonas Schmedtmann (Udemy)',
-    type: 'Certification',
-  },
-  {
-    icon: Code,
-    title: 'Node.js Bootcamp',
-    organization: 'Jonas Schmedtmann (Udemy)',
-    type: 'Certification',
-  },
-  {
-    icon: Code,
-    title: 'HTML & CSS Mastery',
-    organization: 'Jonas Schmedtmann (Udemy)',
-    type: 'Certification',
-  },
-  {
-    icon: Code,
-    title: 'Machine Learning Mathematics',
-    organization: 'Duke University (Coursera)',
-    type: 'Certification',
-  },
-  {
-    icon: Users,
-    title: 'Google Developer Student',
-    organization: 'Google Developers',
-    type: 'Community',
-  },
-  {
-    icon: Users,
-    title: 'Microsoft Learn Student Ambassador',
-    organization: 'Microsoft',
-    type: 'Community',
+    label: 'Certificates',
+    columns: true,
+    items: [
+      { title: 'Programming in JavaScript', issuer: 'Meta' },
+      { title: 'Frontend Development', issuer: 'Meta' },
+      { title: 'React: The Complete Guide', issuer: 'Jonas Schmedtmann' },
+      { title: 'Node.js Bootcamp', issuer: 'Jonas Schmedtmann' },
+      { title: 'HTML & CSS Mastery', issuer: 'Jonas Schmedtmann' },
+      { title: 'Responsive Web Design', issuer: 'freeCodeCamp' },
+      { title: 'Software Engineering', issuer: 'ALX' },
+      { title: 'AI Prompt Engineering', issuer: 'ALX' },
+      { title: 'Machine Learning Mathematics', issuer: 'Duke University' },
+    ],
   },
 ];
 
-const Achievements = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
+const Achievements = () => (
+  <section data-section className="relative overflow-hidden px-6 py-24">
+    <div className="absolute inset-0 opacity-5 bg-film-grain" />
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
+    <div className="relative mx-auto w-full max-w-4xl">
+      <motion.div
+        initial={{ opacity: 0, y: 32 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, ease: EASE }}
+        className="mb-16 text-center"
+      >
+        <h2 className="mb-4 font-serif text-5xl text-balance md:text-7xl">Credentials</h2>
+        <p className="text-lg text-[#F5F3EF]/60 text-pretty">Study, roles and certificates</p>
+      </motion.div>
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case 'Education':
-        return 'text-blue-400 border-blue-400/20';
-      case 'Leadership':
-        return 'text-purple-400 border-purple-400/20';
-      case 'Certification':
-        return 'text-emerald-400 border-emerald-400/20';
-      case 'Community':
-        return 'text-amber-400 border-amber-400/20';
-      default:
-        return 'text-[#8B7355] border-[#8B7355]/20';
-    }
-  };
-
-  return (
-    <section
-      ref={sectionRef}
-      data-section
-      className="min-h-screen py-24 px-6 relative overflow-hidden flex items-center"
-    >
-      <div className="absolute inset-0 opacity-5 bg-film-grain" />
-
-      <div className="max-w-7xl mx-auto w-full">
-        <h2
-          className={`text-5xl md:text-7xl font-serif text-center mb-20 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-          }`}
+      {groups.map((group, i) => (
+        <motion.div
+          key={group.label}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '0px 0px -8% 0px' }}
+          transition={{ duration: 0.6, delay: Math.min(i, 3) * 0.05, ease: EASE }}
+          className="grid gap-3 border-t border-[#F5F3EF]/10 py-6 md:grid-cols-[11rem_1fr] md:gap-8"
         >
-          Credentials
-        </h2>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {credentials.map((credential, index) => {
-            const Icon = credential.icon;
-            return (
-              <div
-                key={index}
-                className={`group relative transition-all duration-700 ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-                }`}
-                style={{
-                  transitionDelay: `${index * 100}ms`,
-                }}
-              >
-                <div className="relative bg-[#1A1A1A] rounded-lg p-6 border border-[#F5F3EF]/10 hover:border-[#8B7355]/30 transition-all duration-500 hover:shadow-xl hover:shadow-[#8B7355]/5 h-full">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#8B7355]/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                  <div className="relative z-10">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="w-12 h-12 rounded-full bg-[#8B7355]/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                        <Icon className="w-6 h-6 text-[#8B7355]" />
-                      </div>
-                      <span
-                        className={`text-xs font-mono px-3 py-1 rounded-full border ${getTypeColor(
-                          credential.type
-                        )}`}
-                      >
-                        {credential.type}
-                      </span>
-                    </div>
-
-                    <h3 className="text-lg font-serif mb-2 group-hover:text-[#8B7355] transition-colors duration-300 leading-snug">
-                      {credential.title}
-                    </h3>
-
-                    <p className="text-sm text-[#F5F3EF]/70 leading-relaxed">
-                      {credential.organization}
-                    </p>
-                  </div>
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#8B7355]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg" />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-};
+          <h3 className="font-mono text-sm text-[#8B7355] md:pt-1">{group.label}</h3>
+          <ul className={`grid gap-4 ${group.columns ? 'sm:grid-cols-2 sm:gap-x-8' : ''}`}>
+            {group.items.map((item) => (
+              <li key={item.title}>
+                <p className="font-serif text-xl text-[#F5F3EF]">{item.title}</p>
+                <p className="mt-0.5 font-mono text-sm text-[#F5F3EF]/50">{item.issuer}</p>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      ))}
+    </div>
+  </section>
+);
 
 export default Achievements;

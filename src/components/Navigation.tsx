@@ -1,14 +1,13 @@
-import { useState } from "react";
-
 interface NavigationProps {
   activeSection: number;
 }
 
+// Must match the order of the sections rendered in App.tsx.
 const sections = [
   "Hero",
   "About",
-  "Experience",
   "Projects",
+  "Experience",
   "Credentials",
   "Skills",
   "Contact",
@@ -55,7 +54,7 @@ const Navigation = ({ activeSection }: NavigationProps) => {
       {/* Mobile Navigation */}
       <nav className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 md:hidden">
         <div className="flex gap-3 px-4 py-3 bg-[#1A1A1A]/80 backdrop-blur-sm border border-[#F5F3EF]/10 rounded-full">
-          {sections.map((section, index) => (
+          {sections.map((_section, index) => (
             <button
               key={index}
               onClick={() => scrollToSection(index)}

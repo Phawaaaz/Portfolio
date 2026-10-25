@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 interface Work {
   role: string;
@@ -8,186 +9,92 @@ interface Work {
   description: string;
 }
 
+// Newest first. Dates match the CV (Oct 2026).
 const workExperience: Work[] = [
+  {
+    role: "Backend Engineer",
+    company: "AMEN",
+    period: "Oct 2026",
+    description: "API for the AMEN Awards: judging, voting, case handling, roles and photo uploads.",
+  },
+  {
+    role: "Frontend Engineer",
+    company: "Floowpay",
+    period: "Apr 2026 – Present",
+    description: "Merchant app for an e-invoicing platform: Mandarin localization, mobile dashboard, support centre.",
+  },
+  {
+    role: "Software Engineer (NYSC)",
+    company: "ETech",
+    period: "Jan 2026 – Present",
+    description: "An AI-powered learning platform, and the front end of an ECG analysis tool for clinicians.",
+  },
+  {
+    role: "Freelance & contract",
+    company: "ASOL · Chicly · LandNest",
+    period: "Jan 2026 – Present",
+    description: "Company websites, commerce APIs and admin portals for clients.",
+  },
   {
     role: "Software Engineer",
     company: "RTIG Inc",
-    period: "Present",
-    description:
-      "Building scalable web applications and contributing to core product development",
+    period: "Jun 2025 – Jun 2026",
+    description: "Client web applications with reusable components and Paystack payments.",
   },
   {
     role: "Tech Intern",
-    company: "Acemyx",
+    company: "AcemyX",
     period: "Jul 2024 – Mar 2025",
-    description:
-      "Developed full-stack features and collaborated on client projects",
+    description: "Front-end development, turning Figma designs into production interfaces.",
   },
   {
-    role: "Student Intern",
-    company: "LCM",
-    period: "2023",
-    description:
-      "Assisted in software development and learned industry best practices",
+    role: "Student Intern (SIWES)",
+    company: "Lagos Channel Management",
+    period: "May 2024 – Nov 2024",
+    description: "IT support, network infrastructure and SQL databases.",
   },
 ];
 
-const Experience = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
+// Deliberately plain: a quiet list, one line each, no hover effects.
+const Experience = () => (
+  <section data-section className="relative overflow-hidden px-6 py-24">
+    <div className="absolute inset-0 opacity-5 bg-film-grain" />
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
-      { threshold: 0.3 }
-    );
+    <div className="relative mx-auto w-full max-w-4xl">
+      <motion.div
+        initial={{ opacity: 0, y: 32 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, ease: EASE }}
+        className="mb-16 text-center"
+      >
+        <h2 className="mb-4 font-serif text-5xl text-balance md:text-7xl">Experience</h2>
+        <p className="text-lg text-[#F5F3EF]/60 text-pretty">Where I've worked and learned</p>
+      </motion.div>
 
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.7,
-        ease: [0.22, 1, 0.36, 1],
-      },
-    },
-  };
-
-  const cardHoverVariants = {
-    rest: { scale: 1 },
-    hover: {
-      scale: 1.02,
-      transition: {
-        duration: 0.3,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  return (
-    <section
-      ref={sectionRef}
-      data-section
-      className="py-24 px-6 relative overflow-hidden"
-    >
-      <div className="absolute inset-0 opacity-5 bg-film-grain" />
-
-      <div className="max-w-4xl mx-auto w-full">
-        <motion.h2
-          initial={{ opacity: 0, y: 48 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 48 }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="text-5xl md:text-7xl font-serif text-center mb-4 text-balance"
-        >
-          Experience
-        </motion.h2>
-
-        <motion.p
-          initial={{ opacity: 0, y: 48 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 48 }}
-          transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center text-lg text-[#F5F3EF]/60 mb-16 text-pretty"
-        >
-          Where I've worked and learned
-        </motion.p>
-
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isVisible ? "visible" : "hidden"}
-          className="space-y-12"
-        >
-          {workExperience.map((item, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              whileHover="hover"
-              initial="rest"
-              className="group relative"
-            >
-              <motion.div variants={cardHoverVariants} className="relative">
-                {/* Mobile Layout */}
-                <div className="md:hidden border-l-2 border-[#8B7355]/30 pl-4 hover:border-[#8B7355] transition-colors duration-300">
-                  <span className="text-xs font-mono text-[#8B7355] mb-2 block">
-                    {item.period}
-                  </span>
-                  <motion.h3
-                    whileHover={{ x: 4 }}
-                    transition={{ duration: 0.3 }}
-                    className="text-xl font-serif text-[#F5F3EF] group-hover:text-[#8B7355] transition-colors duration-300 mb-1"
-                  >
-                    {item.role}
-                  </motion.h3>
-                  <p className="text-sm text-[#F5F3EF]/80 font-mono mb-2">
-                    {item.company}
-                  </p>
-                  <p className="text-sm text-[#F5F3EF]/60 leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-
-                {/* Desktop Layout */}
-                <div className="hidden md:flex items-start gap-8 border-l-2 border-[#8B7355]/30 pl-6 hover:border-[#8B7355] transition-colors duration-300">
-                  <div className="flex-shrink-0 w-32">
-                    <span className="text-sm font-mono text-[#8B7355]">
-                      {item.period}
-                    </span>
-                  </div>
-
-                  <div className="flex-1">
-                    <motion.h3
-                      whileHover={{ x: 8 }}
-                      transition={{ duration: 0.3 }}
-                      className="text-2xl font-serif text-[#F5F3EF] group-hover:text-[#8B7355] transition-colors duration-300 mb-1"
-                    >
-                      {item.role}
-                    </motion.h3>
-                    <p className="text-base text-[#F5F3EF]/80 font-mono mb-2">
-                      {item.company}
-                    </p>
-                    <p className="text-sm text-[#F5F3EF]/60 leading-relaxed max-w-2xl">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Timeline decoration */}
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
-          transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mt-12 pt-12 border-t border-[#F5F3EF]/10"
-        >
-          <div className="text-center">
-            <p className="text-sm font-mono text-[#F5F3EF]/50">
-              Currently open to new opportunities
-            </p>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-};
+      <ol>
+        {workExperience.map((item, i) => (
+          <motion.li
+            key={`${item.company}-${item.period}`}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "0px 0px -8% 0px" }}
+            transition={{ duration: 0.6, delay: Math.min(i, 3) * 0.05, ease: EASE }}
+            className="grid gap-1 border-t border-[#F5F3EF]/10 py-6 md:grid-cols-[11rem_1fr] md:gap-8"
+          >
+            <p className="font-mono text-sm text-[#8B7355] md:pt-1">{item.period}</p>
+            <div>
+              <h3 className="font-serif text-xl text-[#F5F3EF] md:text-2xl">
+                {item.role}
+                <span className="ml-3 font-mono text-sm text-[#F5F3EF]/50">{item.company}</span>
+              </h3>
+              <p className="mt-2 text-base leading-relaxed text-[#F5F3EF]/65 text-pretty">{item.description}</p>
+            </div>
+          </motion.li>
+        ))}
+      </ol>
+    </div>
+  </section>
+);
 
 export default Experience;

@@ -1,95 +1,118 @@
 import { useEffect, useRef, useState } from "react";
+import { animate, motion, useInView, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { Mail } from "lucide-react";
 
-const About = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+const statement =
+  "I build web products end to end, from the database to the last pixel: fintech tools, AI products, and the websites that sell them.";
+
+// From GitHub activity, checked 13 Oct 2026.
+const proof = [
+  { value: 182, label: "commits last year" },
+  { value: 62, label: "pull requests last year" },
+];
+
+// Each word brightens as the statement scrolls through the screen.
+const Word = ({ word, range, progress }: { word: string; range: [number, number]; progress: MotionValue<number> }) => {
+  const opacity = useTransform(progress, range, [0.2, 1]);
+  return (
+    <motion.span style={{ opacity }} className="inline-block">
+      {word}&nbsp;
+    </motion.span>
+  );
+};
+
+const CountUp = ({ to }: { to: number }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "0px 0px -15% 0px" });
+  const [value, setValue] = useState(0);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    if (!inView) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setValue(to);
+      return;
     }
-
-    return () => observer.disconnect();
-  }, []);
+    const controls = animate(0, to, { duration: 1.6, ease: EASE, onUpdate: (v) => setValue(Math.round(v)) });
+    return () => controls.stop();
+  }, [inView, to]);
 
   return (
-    <section
-      ref={sectionRef}
-      data-section
-      className="py-24 px-6 md:px-12 relative overflow-hidden"
-    >
+    <span ref={ref} className="tabular-nums">
+      {value}
+    </span>
+  );
+};
+
+const rise = {
+  initial: { opacity: 0, y: 24, filter: "blur(6px)" },
+  whileInView: { opacity: 1, y: 0, filter: "blur(0px)" },
+  viewport: { once: true, margin: "0px 0px -12% 0px" },
+};
+
+const About = () => {
+  const statementRef = useRef<HTMLParagraphElement>(null);
+  const { scrollYProgress } = useScroll({ target: statementRef, offset: ["start 0.85", "end 0.5"] });
+  const words = statement.split(" ");
+
+  return (
+    <section data-section className="relative overflow-hidden px-6 py-24 md:px-12 md:py-36">
       <div className="absolute inset-0 opacity-5 bg-film-grain" />
 
-      <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-        <div className="relative">
-          <div
-            className={`transition-[opacity,transform] duration-1000 ${
-              isVisible
-                ? "opacity-100 translate-x-0"
-                : "opacity-0 -translate-x-12"
-            }`}
+      <div className="relative mx-auto max-w-5xl">
+        <motion.div {...rise} transition={{ duration: 0.8, ease: EASE }} className="flex items-baseline justify-between gap-6">
+          <h2 className="font-serif text-4xl text-[#8B7355] md:text-5xl">About</h2>
+          <p className="font-mono text-sm text-[#F5F3EF]/50">Lagos, Nigeria</p>
+        </motion.div>
+
+        <p
+          ref={statementRef}
+          aria-label={statement}
+          className="relative mt-10 font-serif text-3xl leading-[1.25] text-[#F5F3EF] md:mt-14 md:text-5xl"
+        >
+          {words.map((word, i) => (
+            <Word key={i} word={word} range={[i / words.length, (i + 1) / words.length]} progress={scrollYProgress} />
+          ))}
+        </p>
+
+        <div className="mt-14 grid gap-10 md:mt-20 md:grid-cols-2">
+          <motion.p
+            {...rise}
+            transition={{ duration: 0.8, ease: EASE }}
+            className="text-lg leading-relaxed text-[#F5F3EF]/75 text-pretty"
           >
-            <div className="relative aspect-square max-w-sm mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#8B7355]/30 to-[#2D9596]/30 rounded-lg transform rotate-3" />
-              <div className="absolute inset-0 bg-[#1A1A1A] rounded-lg overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#8B7355]/10 to-transparent" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <img
-                    src="./fawaz.png"
-                    alt="Akinola Fawaz"
-                    className="w-full h-full object-cover outline outline-1 outline-white/10 outline-offset-[-1px] rounded-lg"
-                  />
-                </div>
+            Most of my work sits where products meet money and data: payments, invoicing,
+            bank-alert parsing, and AI tools that read ECGs or spot a crisis early. I'm a
+            Computer Science graduate from the University of Ilorin, and I care about the
+            details users never notice.
+          </motion.p>
+
+          <motion.dl
+            {...rise}
+            transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
+            className="grid grid-cols-2 gap-4"
+          >
+            {proof.map((item) => (
+              <div key={item.label}>
+                <dd className="font-serif text-5xl text-[#F5F3EF] md:text-6xl">
+                  <CountUp to={item.value} />
+                </dd>
+                <dt className="mt-2 font-mono text-xs leading-snug text-[#A8906F] md:text-sm">{item.label}</dt>
               </div>
-            </div>
-          </div>
+            ))}
+          </motion.dl>
         </div>
 
-        <div className="space-y-6">
-          <div
-            className={`transition-[opacity,transform] duration-1000`}
-            style={{
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? "translateY(0)" : "translateY(32px)",
-            }}
+        <motion.div {...rise} transition={{ duration: 0.8, delay: 0.15, ease: EASE }} className="mt-12">
+          <a
+            href="mailto:phawaazakin@gmail.com"
+            className="relative inline-flex items-center gap-2 bg-[#F5F3EF]/[0.06] px-2.5 py-1 font-mono text-sm text-[#A8906F] transition-[background-color,color] duration-150 ease-out after:absolute after:-inset-y-1.5 after:inset-x-0 hover:bg-[#A8906F] hover:text-[#0D0D0D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A8906F]"
           >
-            <h2 className="text-4xl md:text-5xl font-serif text-[#8B7355] mb-4 text-balance">
-              About
-            </h2>
-            <p className="text-lg text-[#F5F3EF]/90 leading-relaxed text-pretty">
-              Full-stack developer building scalable web applications with
-              React, Node.js, and TypeScript. I focus on clean code and
-              practical solutions.
-            </p>
-          </div>
-
-          <div
-            className={`transition-[opacity,transform] duration-1000 delay-200`}
-            style={{
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? "translateY(0)" : "translateY(32px)",
-            }}
-          >
-            <a
-              href="mailto:phawaazakin@gmail.com"
-              className="group inline-flex items-center text-base font-mono text-[#8B7355] hover:text-[#F5F3EF] transition-transform duration-150 ease-out active:scale-[0.96]"
-            >
-              Get in touch
-              <span className="ml-2 transform group-hover:translate-x-2 transition-transform duration-300">
-                →
-              </span>
-            </a>
-          </div>
-        </div>
+            <Mail className="size-4" aria-hidden="true" />
+            Get in touch
+          </a>
+        </motion.div>
       </div>
     </section>
   );

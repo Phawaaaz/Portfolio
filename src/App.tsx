@@ -3,10 +3,12 @@ import Preload from "./components/Preload";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Experience from "./components/Experience";
+import Reviews from "./components/Reviews";
 import Projects from "./components/Projects";
 import Achievements from './components/Achievements';
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 import Navigation from "./components/Navigation";
 import { SEO } from "./components/SEO";
 import { SEO_CONFIG } from "./config/seo";
@@ -51,9 +53,11 @@ function App() {
         <About />
         <Projects />
         <Experience />
+        <Reviews />
         <Achievements />
         <Skills />
         <Contact />
+        <Footer />
       </div>
     </>
   );
