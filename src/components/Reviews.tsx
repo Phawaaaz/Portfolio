@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 interface Review {
   quote: string;
@@ -28,10 +28,10 @@ const Reviews = () => {
 
       <div className="relative mx-auto max-w-5xl">
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: EASE }}
+          viewport={{ once: false }}
+          transition={{ duration: 0.45, ease: EASE }}
           className="mb-16 text-center"
         >
           <h2 className="mb-4 font-serif text-5xl text-balance md:text-7xl">Kind words</h2>
@@ -44,8 +44,8 @@ const Reviews = () => {
               key={review.name}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-              transition={{ duration: 0.7, delay: (i % 2) * 0.1, ease: EASE }}
+              viewport={{ once: false, margin: "0px 0px -10% 0px" }}
+              transition={{ duration: 0.45, delay: (i % 2) * 0.1, ease: EASE }}
               className="border-l-2 border-[#8B7355]/40 pl-6"
             >
               <blockquote className="font-serif text-xl leading-relaxed text-[#F5F3EF] text-pretty md:text-2xl">

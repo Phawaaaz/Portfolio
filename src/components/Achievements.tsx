@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-const EASE = [0.22, 1, 0.36, 1] as const;
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 interface Credential {
   title: string;
@@ -47,10 +47,10 @@ const Achievements = () => (
 
     <div className="relative mx-auto w-full max-w-4xl">
       <motion.div
-        initial={{ opacity: 0, y: 32 }}
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, ease: EASE }}
+        viewport={{ once: false }}
+        transition={{ duration: 0.45, ease: EASE }}
         className="mb-16 text-center"
       >
         <h2 className="mb-4 font-serif text-5xl text-balance md:text-7xl">Credentials</h2>
@@ -62,8 +62,8 @@ const Achievements = () => (
           key={group.label}
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '0px 0px -8% 0px' }}
-          transition={{ duration: 0.6, delay: Math.min(i, 3) * 0.05, ease: EASE }}
+          viewport={{ once: false, margin: '0px 0px -8% 0px' }}
+          transition={{ duration: 0.45, delay: Math.min(i, 3) * 0.05, ease: EASE }}
           className="grid gap-3 border-t border-[#F5F3EF]/10 py-6 md:grid-cols-[11rem_1fr] md:gap-8"
         >
           <h3 className="font-mono text-sm text-[#8B7355] md:pt-1">{group.label}</h3>

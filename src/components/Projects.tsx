@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, Github } from "lucide-react";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 interface Project {
   title: string;
@@ -204,18 +204,18 @@ const FeaturedRow = ({ project, index }: { project: Project; index: number }) =>
         style={{ y }}
         initial={{ clipPath: "inset(100% 0% 0% 0%)" }}
         whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
-        viewport={{ once: true, margin: "0px 0px -15% 0px" }}
-        transition={{ duration: 1.1, ease: EASE }}
+        viewport={{ once: false, margin: "0px 0px -15% 0px" }}
+        transition={{ duration: 0.45, ease: EASE }}
         className={`md:col-span-7 ${flip ? "md:order-2" : ""}`}
       >
         <Shot project={project} />
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
-        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        viewport={{ once: true, margin: "0px 0px -15% 0px" }}
-        transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, margin: "0px 0px -15% 0px" }}
+        transition={{ duration: 0.45, delay: 0.15, ease: EASE }}
         className={`md:col-span-5 ${flip ? "md:order-1" : ""}`}
       >
         <p className="font-mono text-sm text-[#8B7355]">
@@ -242,10 +242,10 @@ const Projects = () => (
 
     <div className="relative z-10 mx-auto max-w-6xl">
       <motion.div
-        initial={{ opacity: 0, y: 32 }}
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, ease: EASE }}
+        viewport={{ once: false }}
+        transition={{ duration: 0.45, ease: EASE }}
         className="mb-20 text-center md:mb-28"
       >
         <h2 className="mb-4 font-serif text-5xl text-balance md:text-7xl">Projects</h2>
@@ -263,10 +263,10 @@ const Projects = () => (
         {more.map((project, i) => (
           <motion.article
             key={project.title}
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-            transition={{ duration: 0.8, delay: (i % 2) * 0.1, ease: EASE }}
+            viewport={{ once: false, margin: "0px 0px -10% 0px" }}
+            transition={{ duration: 0.45, delay: (i % 2) * 0.1, ease: EASE }}
           >
             <Shot project={project} />
             <p className="mt-5 font-mono text-sm text-[#8B7355]">{project.role}</p>

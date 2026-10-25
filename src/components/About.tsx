@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { animate, motion, useInView, useScroll, useTransform, type MotionValue } from "framer-motion";
 import { Mail } from "lucide-react";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 const statement =
   "I build web products end to end, from the database to the last pixel: fintech tools, AI products, and the websites that sell them.";
@@ -25,7 +25,7 @@ const Word = ({ word, range, progress }: { word: string; range: [number, number]
 
 const CountUp = ({ to }: { to: number }) => {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "0px 0px -15% 0px" });
+  const inView = useInView(ref, { once: false, margin: "0px 0px -15% 0px" });
   const [value, setValue] = useState(0);
 
   useEffect(() => {
@@ -46,9 +46,9 @@ const CountUp = ({ to }: { to: number }) => {
 };
 
 const rise = {
-  initial: { opacity: 0, y: 24, filter: "blur(6px)" },
-  whileInView: { opacity: 1, y: 0, filter: "blur(0px)" },
-  viewport: { once: true, margin: "0px 0px -12% 0px" },
+  initial: { opacity: 0, y: 16 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: false, margin: "0px 0px -12% 0px" },
 };
 
 const About = () => {
@@ -61,7 +61,7 @@ const About = () => {
       <div className="absolute inset-0 opacity-5 bg-film-grain" />
 
       <div className="relative mx-auto max-w-5xl">
-        <motion.div {...rise} transition={{ duration: 0.8, ease: EASE }} className="flex items-baseline justify-between gap-6">
+        <motion.div {...rise} transition={{ duration: 0.45, ease: EASE }} className="flex items-baseline justify-between gap-6">
           <h2 className="font-serif text-4xl text-[#8B7355] md:text-5xl">About</h2>
           <p className="font-mono text-sm text-[#F5F3EF]/50">Lagos, Nigeria</p>
         </motion.div>
@@ -79,7 +79,7 @@ const About = () => {
         <div className="mt-14 md:mt-20">
           <motion.dl
             {...rise}
-            transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
+            transition={{ duration: 0.45, delay: 0.1, ease: EASE }}
             className="grid max-w-md grid-cols-2 gap-4"
           >
             {proof.map((item) => (
@@ -93,7 +93,7 @@ const About = () => {
           </motion.dl>
         </div>
 
-        <motion.div {...rise} transition={{ duration: 0.8, delay: 0.15, ease: EASE }} className="mt-12">
+        <motion.div {...rise} transition={{ duration: 0.45, delay: 0.15, ease: EASE }} className="mt-12">
           <a
             href="mailto:phawaazakin@gmail.com"
             className="relative inline-flex items-center gap-2 bg-[#F5F3EF]/[0.06] px-2.5 py-1 font-mono text-sm text-[#A8906F] transition-[background-color,color] duration-150 ease-out after:absolute after:-inset-y-1.5 after:inset-x-0 hover:bg-[#A8906F] hover:text-[#0D0D0D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A8906F]"

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowUp, GitBranch } from "lucide-react";
 import DitherField from "./DitherField";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 const prefersReducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -44,8 +44,8 @@ const Footer = () => {
                 className="block text-[18.5vw] md:text-[13vw]"
                 initial={{ y: "100%" }}
                 whileInView={{ y: "0%" }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.1, delay: i * 0.12, ease: EASE }}
+                viewport={{ once: false }}
+                transition={{ duration: 0.45, delay: i * 0.12, ease: EASE }}
               >
                 {word}
               </motion.span>
