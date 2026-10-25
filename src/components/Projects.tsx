@@ -80,6 +80,15 @@ const featured: Project[] = [
 
 const more: Project[] = [
   {
+    title: "Akinola.io",
+    role: "Personal lab",
+    description:
+      "My digital archive for writing, experiments and architecture notes: where I break databases in interesting ways and build in public.",
+    tech: ["Next.js", "TypeScript"],
+    live: "https://fakinolaio.vercel.app",
+    image: "akinola-io.jpg",
+  },
+  {
     title: "ASOL Business Solutions",
     role: "Client site",
     description: "Company website for a Nigerian firm offering micro-credit and business advisory.",
