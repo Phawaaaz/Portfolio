@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUp, GitBranch } from "lucide-react";
-import DitherField from "./DitherField";
+import AsciiRain from "./AsciiRain";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -31,27 +31,35 @@ const Footer = () => {
     <footer className="relative overflow-hidden border-t border-[#F5F3EF]/10">
       <div className="absolute inset-0 opacity-5 bg-film-grain" />
 
-      {/* Wordmark, echoing the hero, over the same interactive dither. */}
-      <div className="relative">
-        <DitherField />
-        <p
-          aria-hidden="true"
-          className="relative select-none px-4 pb-12 pt-20 text-center font-serif uppercase leading-[0.82] tracking-[-0.03em] text-[#F5F3EF] md:pt-28"
+      {/* Sign-off, echoing the hero: the name rises letter by letter over the same ASCII rain. */}
+      <div className="relative px-6 py-24 text-center md:py-32">
+        <AsciiRain />
+        <motion.p
+          aria-label="Akinola Fawaz"
+          initial="hidden"
+          whileInView="shown"
+          viewport={{ once: false, amount: 0.6 }}
+          className="relative font-serif text-6xl leading-[0.95] tracking-tight text-[#F5F3EF] md:text-8xl"
         >
-          {["Akinola", "Fawaz"].map((word, i) => (
-            <span key={word} className="block overflow-hidden">
-              <motion.span
-                className="block text-[18.5vw] md:text-[13vw]"
-                initial={{ y: "100%" }}
-                whileInView={{ y: "0%" }}
-                viewport={{ once: false }}
-                transition={{ duration: 0.45, delay: i * 0.12, ease: EASE }}
-              >
-                {word}
-              </motion.span>
-            </span>
+          {["Akinola", "Fawaz"].map((word, w) => (
+            <Fragment key={word}>
+              <span className="inline-block whitespace-nowrap">
+                {[...word].map((ch, i) => (
+                  <span key={i} aria-hidden="true" className="inline-block overflow-hidden pb-[0.1em] align-bottom">
+                    <motion.span
+                      className="inline-block"
+                      variants={{ hidden: { y: "110%" }, shown: { y: "0%" } }}
+                      transition={{ duration: 0.5, delay: (w * 8 + i) * 0.03, ease: EASE }}
+                    >
+                      {ch}
+                    </motion.span>
+                  </span>
+                ))}
+              </span>
+              {w === 0 && " "}
+            </Fragment>
           ))}
-        </p>
+        </motion.p>
       </div>
 
       {/* Terminal-style status bar. Extra bottom padding on phones clears the dot nav. */}
