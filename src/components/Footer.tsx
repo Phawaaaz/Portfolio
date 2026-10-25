@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUp, GitBranch } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import AsciiRain from "./AsciiRain";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -66,11 +66,6 @@ const Footer = () => {
       <div className="relative bg-fg/[0.03] pb-20 md:pb-0">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-3 font-mono text-xs text-fg/50">
           <div className="flex items-center gap-4">
-            <span className="text-accent-light">~/phawaaz/portfolio</span>
-            <span className="flex items-center gap-1">
-              <GitBranch className="size-3.5" aria-hidden="true" />
-              main
-            </span>
             <span>
               Lagos <span className="tabular-nums text-fg/70">{time}</span> WAT
             </span>
