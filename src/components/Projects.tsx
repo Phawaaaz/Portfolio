@@ -80,6 +80,16 @@ const featured: Project[] = [
 
 const more: Project[] = [
   {
+    title: "Agent Skills",
+    role: "AI tooling",
+    description:
+      "A curated catalog of 19 skills for coding agents like Claude Code, eight of them my own, with what each does, when to use it and one command to install it.",
+    tech: ["JavaScript", "HTML", "CSS", "Vercel"],
+    live: "https://agent-skills-kappa.vercel.app",
+    github: "https://github.com/phawaaaz/skills",
+    image: "agent-skills.jpg",
+  },
+  {
     title: "Akinola.io",
     role: "Personal lab",
     description:
